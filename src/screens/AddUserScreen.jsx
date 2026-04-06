@@ -1,7 +1,7 @@
 import { useState , useRef } from 'react';
 import { View, Text, StyleSheet,TouchableOpacity ,TextInput} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-import { StatusBar } from 'react-native/types_generated/index';
+// import { StatusBar } from 'react-native/types_generated/index';
 
 const AddUserScreen = ({navigation}) => {
    const [text, setText ] = useState([]);
