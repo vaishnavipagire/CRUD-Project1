@@ -1,13 +1,16 @@
 import { useState , useRef } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity ,TextInput} from 'react-native';
+import { View, Text, StyleSheet,TouchableOpacity ,TextInput,Image} from 'react-native';
 import { Picker } from '@react-native-picker/picker';
-// import { StatusBar } from 'react-native/types_generated/index';
+import { useRoute } from '@react-navigation/native';
 
 const AddUserScreen = ({navigation}) => {
-   const [text, setText ] = useState([]);
+  
+   const [text, setText ] = useState();
    const[selectedItem,setSelectedItem] = useState('admin');
   //  const pickerRef = useRef();
-
+   const route = useRoute();
+   console.log(route.params);
+   
    return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -23,16 +26,22 @@ const AddUserScreen = ({navigation}) => {
      <View>
        <TouchableOpacity>
           <View style={styles.photo}>
-          <Text style={{color:'blue'}}>Edit photo</Text>
+           <Image source={require('../assets/Imageicon.jpg')} 
+           style={styles.imageicon}/>
+           <View styles={styles.photo1}>
+             <Text style={{color:'blue'}}>Edit photo</Text>
+           </View>
+          {/* <Text style={{color:'blue'}}>Edit photo</Text> */}
          </View>
          </TouchableOpacity>
     </View>
-
+      
       <View style={styles.container1}>
       <Text style={{fontSize:18}}>Full Name</Text>
       <TextInput style={styles.textinput} 
        placeholder="Enter your name" 
       />
+      
       <Text style={{fontSize:18}}>Email</Text>
       <TextInput style={styles.textinput} 
       placeholder="Enter your email" 
@@ -124,7 +133,23 @@ const styles = StyleSheet.create({
        borderWidth: 1,
        borderColor: 'black',
        borderRadius: 4,
-       padding: 5,
+       padding:5,
+      marginLeft:130,
+      marginRight:160,
+      marginTop:10,
+      justifyContent:'center',
+       
+ },
+    imageicon:{
+       width: 100,
+       height: 100, 
+       borderRadius:4
+    },
+    photo1:{
+       borderWidth: 1,
+       borderColor: 'black',
+       borderRadius: 4,
+       padding:5,
       marginLeft:130,
       marginRight:160,
       marginTop:10,
