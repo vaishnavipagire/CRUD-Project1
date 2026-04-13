@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
-
+import {deleteUser} from '../services/api';
+ 
 const AddUserScreen = () => {
+  
   const navigation = useNavigation();
   const [selectedItem, setSelectedItem] = useState();
 
@@ -21,9 +23,7 @@ const AddUserScreen = () => {
   const [phone, setPhone] = useState('');
   const [status, setStatus] = useState('');
 
-  console.log(name, email);
-
-  const postAPIData = async()=>{
+   const postAPIData = async()=>{
   const url = 'https://69c275e57518bf8facbe6b7a.mockapi.io/users/userList';
   let result = await fetch(url,{
     method:"POST",
@@ -41,6 +41,15 @@ const AddUserScreen = () => {
    result = await result.json();
    console.log(result);
      }
+
+    const handledelete  = async()=>{
+     try{
+          await deleteUser(item.id)
+          navigation.navigate('UserListScreen')
+     }catch(err){
+      console.log('handle delete err', err);
+      }
+    }
      useEffect(() => {
      postAPIData();
        }, []);
@@ -57,7 +66,8 @@ const AddUserScreen = () => {
           <Text style={styles.text}>Cancel</Text>
         </TouchableOpacity>
         <Text style={styles.text1}>Add/Edit User</Text>
-        <TouchableOpacity onPress={() => navigation.navigate('UserListScreen')}>
+        <TouchableOpacity onPress={() => 
+        navigation.navigate('UserListScreen')}>
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
@@ -148,7 +158,7 @@ const AddUserScreen = () => {
       <View style={styles.hzline6}>
       </View>
       <TouchableOpacity style={styles.deletebutton}>
-        <Text style={{ color: 'white' }}>Delete User</Text>
+        <Text style={{ color: 'white'}}>Delete User</Text>
       </TouchableOpacity>
     </View>
   );

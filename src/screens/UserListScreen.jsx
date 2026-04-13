@@ -6,11 +6,13 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  TouchableOpacity,ActivityIndicator} from 'react-native';
+  TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import Squarecircle from 'react-native-vector-icons/dist/Feather';
 import Searchicon from 'react-native-vector-icons/dist/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
+import {deleteUser} from '../services/api';
+import {getAPIData} from '../services/api';
 
   const UserListScreen = () => {
   const navigation = useNavigation();
@@ -21,30 +23,52 @@ import { useNavigation } from '@react-navigation/native';
   const [refreshing, setRefreshing] = useState(false);
   const [loading, setLoading] = useState(true);
 
-   const getAPIData = async () => {
-    try{
-       const url = 'https://69c275e57518bf8facbe6b7a.mockapi.io/users/userList';
-      let result = await fetch(url);
-      result = await result.json();
-      setData(result);
-     setFilteredData(result);
-    }
-    catch (error) {
-      console.error("Fetch error:", error);
-    }finally {
-      setLoading(false);
-      setRefreshing(false);
-    }
+  //    const getAPIData = async () => {
+  //   try{
+  //      const url = 'https://69c275e57518bf8facbe6b7a.mockapi.io/users/userList';
+  //     let result = await fetch(url);
+  //     result = await result.json();
+  //     setData(result);
+  //    setFilteredData(result);
+  //   }
+  //   catch (error) {
+  //     console.error("Fetch error:", error);
+  //   }
+  // };
+  const fetchUsers = async () => {
+    setLoading(true);
+    const result = await getAPIData();
+    setData(result);
+    setFilteredData(result);
+    setLoading(false);
+    setRefreshing(false);
   };
+
+  // Initial Load
   useEffect(() => {
+    fetchUsers();
+  }, []);
+
+
+  const handledelete  = async(id)=>{
+       try{
+            await deleteUser(id)
+            getAPIData();
+       }catch(err){
+        console.log('handle delete err', err);
+       }
+      }
+ useEffect(() => {
     getAPIData();
   }, []);
 
+//Reload
    const onRefresh = () => {
     setRefreshing(true);
     getAPIData(); 
   };
 
+  //Refresh
   const handleSearch = text => {
     setSearch(text);
     if (!text) {
@@ -52,12 +76,14 @@ import { useNavigation } from '@react-navigation/native';
       return;
     }
     const filtered = data.filter(item =>
-      item.name.toLowerCase().includes(text.toLowerCase())
+      item.name ?.toLowerCase().includes(text.toLowerCase())
     );
     setFilteredData(filtered);
   };
 
+     //Item UI
     const renderItem = ({ item }) => (
+      <>  
     <View style={styles.container1}>
       <Image source={{ uri: item.avatar }} style={styles.image} />
       <View style={styles.Container3}>
@@ -65,44 +91,43 @@ import { useNavigation } from '@react-navigation/native';
         <Text style={{ fontSize: 16 }}>{item.email}</Text>
         <Text style={{ fontSize: 16 }}>{item.phone}</Text>
       </View>
-   {/* <TouchableOpacity
-        style={styles.deletebutton}
-        onPress={() => navigation.navigate('AddUserScreen',{item})}>
-        <Text style={{ color: 'white' }}>Delete</Text>
-      </TouchableOpacity>
+      
 
       <TouchableOpacity
-        style={styles.updatebutton}
-        onPress={() => navigation.navigate('AddUserScreen', { item: item })}
-      >
-        <Text style={{ color: 'white' }}>Update</Text>
-      </TouchableOpacity> */}
+        style={styles.deleteBtn}
+        onPress={() => navigation.navigate('AddUserScreen', { item: item })}>
+        <Text style={{ color: 'white' }}onPress={()=>handledelete(item.id)}>delete</Text>
+      </TouchableOpacity>
     </View>
+    <View style={styles.hzline1}></View>
+    </>
+            
   );
-  if (loading) {
-    return <ActivityIndicator size="large" style={{ flex: 1 }} />;
-  }
+ 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>All Users</Text>
-      <Icon name="plus" size={17} style={styles.icon}
-      onPress={() => navigation.navigate('AddUserScreen')}
-      />
-  
-      <Searchicon name="search" size={30} style={styles.searchicon} />
-      <TextInput style={styles.searchBar} placeholder="Search users"
-        value={search} onChangeText={handleSearch}
-      />
-      <Squarecircle name="plus" size={45} style={styles.circleicon}
+      <View style={{flexDirection:"row",justifyContent:"space-between",marginHorizontal:20}}>
+        <Text style={styles.text}>All Users</Text>
+        <Icon name="plus" size={17} style={styles.icon}
         onPress={() => navigation.navigate('AddUserScreen')}/>
-        {/* <Text>{'>'} </Text> */}
+      </View>
+      <View>
+          <Searchicon name="search" size={30} style={styles.searchicon} />
+          <TextInput style={styles.searchBar} placeholder="Search users"
+            value={search} onChangeText={handleSearch}/>
+      </View>
+      
+        <View>
        <FlatList
         data={filteredData}
         renderItem={renderItem}
-        keyExtractor={item => item.id.toString()}
+        keyExtractor={(item,index) => item.id+index}
         refreshing={refreshing}
         onRefresh={onRefresh}
       />
+      </View>
+      <Squarecircle name="plus" size={45} style={styles.circleicon}
+        onPress={() => navigation.navigate('AddUserScreen')}/>
       </View>
   );
 };
@@ -113,55 +138,54 @@ const styles = StyleSheet.create({
     flex: 1,
     border: 1,
     padding: 3,
-    top:15,
+    top:30,
+  },
+  image: {
+    height: 60,
+    width: 60,
+    borderRadius: 47,
+    marginRight:10,
   },
   text: {
-    margintop: 10,
-    fontSize: 21,
-    top: 12,
-    left: 10,
-    fontWeight: 'bold',
+     fontSize: 21,
+     fontWeight: 'bold',
+     color:"black"
   },
     searchBar: {
-    paddingHorizontal: 40,
+    paddingLeft: 40,
     paddingVertical: 8,
     borderRadius: 6,
     fontSize: 15,
     color: 'black',
-    margin: 20,
+    marginTop: 20,
     borderWidth: 1,
-    right: 20,
-    left: 0,
     borderColor: 'black',
   },
+  hzline:{
+    height:1,
+    backgroundColor:'grey',
+ },
   icon: {
-    position: 'absolute',
-    top: 21,
     height:22,
     width:22,
-    left: 370,
     color:'grey',
-    bottom:870,
     borderWidth:2,
     borderRadius:1,
     borderColor:'grey',
  },
- container1:{
-   backgroundColor:'#DCDCDC',
- },
   searchicon: {
     position: 'absolute',
-    margin: 56,
-    marginLeft: 23,
-    left: 6,
-  },
+    left: 8,
+    top:25,
+   },
   circleicon: {
-  color:'white',
+    position:"absolute",
+    color:'white',
     backgroundColor:'blue',
-    top: 720,
+    bottom:70,
     height:50,
     width:50,
-    left: 343,
+    right:5,
     borderWidth:1,
     borderRadius:30,
     borderColor:'grey',
@@ -172,13 +196,30 @@ const styles = StyleSheet.create({
   },
   container1: {
     flex: 1,
+    flexDirection:"row",
+    alignItems:"flex-start",
     padding: 15,
     fontWeight: 'bold',
   },
   Container3: {
-    position: 'absolute',
-    marginLeft: 100,
     padding:6,
+  },
+  deleteBtn:{
+    position:'absolute',
+    backgroundColor:'red',
+    borderRadius: 4,
+    paddingVertical: 3,
+    height: 25,
+    width: 65,
+    right: 0,
+    padding: 12,
+    bottom: 10,
+  },
+  hzline1:{
+    height:1,
+    width:'100%',
+    right:20,
+    backgroundColor:'grey',
   },
   // updatebutton: {
   //   position: 'absolute',
@@ -191,20 +232,5 @@ const styles = StyleSheet.create({
   //   padding: 10,
   //   top: 20,
   // },
-  // deletebutton: {
-  //   position: 'absolute',
-  //   backgroundColor: 'red',
-  //   borderRadius: 4,
-  //   paddingVertical: 3,
-  //   height: 25,
-  //   width: 65,
-  //   right: 0,
-  //   padding: 10,
-  //   bottom: 10,
-  // },
-  image: {
-    height: 60,
-    width: 60,
-    borderRadius: 47,
-  },
+  
 });
