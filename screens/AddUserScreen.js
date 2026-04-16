@@ -18,23 +18,24 @@ const AddUserScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const editItem = route.params?.item.name;
+  const editItem = route.params?.item
 
   const [selectedItem, setSelectedItem] = useState();
   const [formData, setFormData] = useState({
-    name:'',
-    email:'',
-    role:'',
-    phone:'',
-    status:'',
-  });
+    id: editItem?.id || '',
+    name: editItem?.name || '',
+    email: editItem?.email || '',
+    role: editItem?.role || '',
+    phone: editItem?.phone || '',
+    status: editItem?.status || '',
+});
   useEffect(()=>{
   if(editItem){
     setFormData(editItem);
   }
-},[]);
+  },[]);
   const handleChange = (key, value)=>{
-    setFormData({...setFormData, [key]:value});
+    setFormData({...formData, [key]:value});
   }
   const handleSave = async () => {
        if (editItem) {
@@ -55,8 +56,8 @@ const AddUserScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.text}>Cancel</Text>
         </TouchableOpacity>
-        <Text style={styles.text1}>{editItem ? 'Edit User' : 'Add User'}</Text>
-        <TouchableOpacity onPress={() => handleSave()}>
+        <Text style={styles.text1}>Add/Edit User</Text>
+        <TouchableOpacity onPress={() =>handleSave()}>
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
@@ -64,8 +65,7 @@ const AddUserScreen = () => {
       <View style={styles.hzline}></View>
       <View>
         <View>
-          <Image
-            source={require('../assets/Imageicon.jpg')}
+          <Image source={require('../assets/Imageicon.jpg')}
             style={styles.imageicon}/>
         </View>
 
@@ -96,12 +96,11 @@ const AddUserScreen = () => {
           <View style={{ left: 166 }}>
             <View style={styles.roleDropdownList}>
               <Picker
-                selectedValue={selectedItem}
-                onValueChange={itemValue => setSelectedItem(itemValue)}
-              >
-                <Picker.Item label="Admin" value="Admin" />
-                <Picker.Item label="Manager" value="Manager" />
-                <Picker.Item label="Administrator" value="Administrator" />
+                selectedValue={formData.role}
+                onValueChange={itemValue => handleChange('role',itemValue)}>
+                <Picker.Item label="Admin" value="Admin"/>
+                <Picker.Item label="Manager" value="Manager"/>
+                <Picker.Item label="Administrator" value="Administrator"/>
               </Picker>
             </View>
           </View>
@@ -123,16 +122,10 @@ const AddUserScreen = () => {
           <View style={styles.statuscontainer}>
             <Text style={{ fontSize: 18 }}>Status</Text>
             <View style={{ position: 'absolute', left: 240 }}>
-              <TextInput
-                style={styles.statustextinput3}
-                value={formData.status}
-                onChangeText={text => setFormData(text)}
-              />
               <View style={styles.statusinput}>
                 <Picker
-                  selectedValue={selectedItem}
-                  onValueChange={itemValue => setSelectedItem(itemValue)}
-                >
+                 selectedValue={formData.status}
+                  onValueChange={itemValue => handleChange('status',itemValue)}>
                   <Picker.Item label="Active" value="Active" />
                   <Picker.Item label="Inactive" value="Inactive" />
                   <Picker.Item label="All" value="All" />
@@ -178,7 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: '#2b50c0',
     color: 'white',
-    paddingHorizontal: 10,
+    paddingHorizontal:10,
     borderRadius: 6,
   },
   photo: {
@@ -298,10 +291,12 @@ const styles = StyleSheet.create({
   },
   statusinput: {
     position: 'absolute',
-    height: 110,
-    width: 140,
+    height: 40,
+    width: 120,
     margin: 10,
-    paddingHorizontal: 8,
+    borderWidth:1,
+    borderColor:'grey',
+    borderRadius:5
   },
   hzline6: {
     height: 1,
