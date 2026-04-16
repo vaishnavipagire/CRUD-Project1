@@ -25,6 +25,7 @@ import { getAPIData } from '../services/api';
   const loadData = async ()=>{
     const res = await getAPIData();
     setData(res);
+    setFilteredData(res);
   }
   useEffect(() => {
     loadData();
@@ -34,36 +35,37 @@ import { getAPIData } from '../services/api';
          await deleteUser(id);
             loadData();
        };
-   const onRefresh = () => {
-    setRefreshing(true);
-    getAPIData(); 
-    setRefreshing(true);
+  const onRefresh = (async) => {
+      setRefreshing(true);
+       loadData();
+      setRefreshing(false); 
   };
-
-  //Refresh
-  const handleSearch = text => {
+   //Refresh
+  const handleSearch = (text) => {
     setSearch(text);
-    if (!text) {
+    
+    if(text === ' '){
       setFilteredData(data);
       return;
     }
-    const filtered = data.filter(item =>
-      item.name ?.toLowerCase().includes(text.toLowerCase())
+    const filtered = data.filter((item) =>
+      item.name.toLowerCase().includes(text.toLowerCase())
     );
     setFilteredData(filtered);
   };
+   const Separator = ()=>(
+    <View style={styles.Separator}/>
+   )
      //Item UI
   const renderItem = ({ item }) => (
-     
-    <View style={styles.container1}>
+      <View style={styles.container1}>
       <Image source={{ uri: item.avatar }} style={styles.image} />
       <View style={styles.Container3}>
         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
         <Text style={{ fontSize: 16 }}>{item.role}</Text>
         <Text style={{ fontSize: 16 }}>{item.email}</Text>
       </View>
-{/* <View style={styles.hzline1}>
- </View> */}
+
       <TouchableOpacity
         style={styles.editBtn}
         onPress={()=>navigation.navigate('AddUserScreen',{item})}>
@@ -75,11 +77,8 @@ import { getAPIData } from '../services/api';
         onPress={()=>handledelete(item.id)}>
         <Text style={{ color: 'white' }}>delete</Text>
       </TouchableOpacity>
- </View>
-  
-//    <View style={styles.hzline1}>
-//  </View>
-)
+  </View>
+ )
   return(
     <View style={styles.container}>
       <View style={{flexDirection:"row",justifyContent:"space-between",marginHorizontal:20}}>
@@ -92,15 +91,17 @@ import { getAPIData } from '../services/api';
           <TextInput style={styles.searchBar} placeholder="Search users"
             value={search} onChangeText={handleSearch}/>
       </View>
-      
+   
        <View>
-       <FlatList
-        data={data}
+        <FlatList
+        data={filteredData}
         renderItem={renderItem}
         keyExtractor={(item) => item.id.toString()}
         refreshing={refreshing}
         onRefresh={onRefresh}
-      />
+        ItemSeparatorComponent={Separator}
+        contentContainerStyle={{paddingBottom:80}}
+       />
       </View>
       <Squarecircle name="plus" size={45} style={styles.circleicon}
         onPress={() => navigation.navigate('AddUserScreen')}/>
@@ -109,11 +110,15 @@ import { getAPIData } from '../services/api';
 }
 export default UserListScreen;
 const styles = StyleSheet.create({
-  container: {
+  container:{
     flex: 1,
     border: 1,
     padding: 3,
     top:30,
+  },
+  Separator:{
+    height:1,
+    backgroundColor:'grey',
   },
   image: {
     height: 60,
@@ -126,7 +131,7 @@ const styles = StyleSheet.create({
      fontWeight: 'bold',
      color:"black"
   },
-    searchBar: {
+  searchBar: {
     paddingLeft: 40,
     paddingVertical: 8,
     borderRadius: 6,
@@ -136,10 +141,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: 'black',
   },
-  hzline:{
-    height:1,
-    backgroundColor:'grey',
- },
   icon: {
     height:22,
     width:22,
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
     position:"absolute",
     color:'white',
     backgroundColor:'blue',
-    bottom:70,
+    bottom:40,
     height:50,
     width:50,
     right:5,
@@ -180,8 +181,7 @@ const styles = StyleSheet.create({
   Container3: {
     padding:6,
   },
-  editBtn:
-     {
+  editBtn:{
     position:'absolute',
     backgroundColor:'orange',
     borderRadius: 4,
@@ -190,7 +190,7 @@ const styles = StyleSheet.create({
     width: 65,
     right: 0,
     padding: 12,
-    bottom:40,
+    bottom:50,
    },
   deleteBtn:{
     position:'absolute',
@@ -201,12 +201,6 @@ const styles = StyleSheet.create({
     width: 65,
     right: 0,
     padding: 12,
-    bottom: 10,
+    bottom: 17,
   },
-  hzline1:{
-    height:1,
-    width:'100%',
-    right:20,
-    backgroundColor:'grey',
-  },
-});
+  });

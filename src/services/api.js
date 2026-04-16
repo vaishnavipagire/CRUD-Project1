@@ -8,7 +8,7 @@ export const getAPIData = async () => {
  
    //CREATE API
   export const createUser = async (data) => {
-   const res = await fetch(url,{
+   const res = await fetch(url,{                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
     method:'POST',
     headers:{'Content-Type':'application/json'},
     body:JSON.stringify(data),

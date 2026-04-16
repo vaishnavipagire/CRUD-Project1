@@ -28,8 +28,7 @@ const AddUserScreen = () => {
     role: editItem?.role || '',
     phone: editItem?.phone || '',
     status: editItem?.status || '',
-
-  });
+});
   useEffect(()=>{
   if(editItem){
     setFormData(editItem);
@@ -58,7 +57,7 @@ const AddUserScreen = () => {
           <Text style={styles.text}>Cancel</Text>
         </TouchableOpacity>
         <Text style={styles.text1}>Add/Edit User</Text>
-        <TouchableOpacity onPress={() => handleSave()}>
+        <TouchableOpacity onPress={() =>handleSave()}>
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
@@ -66,8 +65,7 @@ const AddUserScreen = () => {
       <View style={styles.hzline}></View>
       <View>
         <View>
-          <Image
-            source={require('../assets/Imageicon.jpg')}
+          <Image source={require('../assets/Imageicon.jpg')}
             style={styles.imageicon}/>
         </View>
 
@@ -98,14 +96,11 @@ const AddUserScreen = () => {
           <View style={{ left: 166 }}>
             <View style={styles.roleDropdownList}>
               <Picker
-                // selectedValue={selectedItem}
                 selectedValue={formData.role}
-                // onValueChange={itemValue => setSelectedItem(itemValue)}
-                onValueChange={itemValue => handleChange('role',itemValue)}
-                >
-                <Picker.Item label="Admin" value="Admin" />
-                <Picker.Item label="Manager" value="Manager" />
-                <Picker.Item label="Administrator" value="Administrator" />
+                onValueChange={itemValue => handleChange('role',itemValue)}>
+                <Picker.Item label="Admin" value="Admin"/>
+                <Picker.Item label="Manager" value="Manager"/>
+                <Picker.Item label="Administrator" value="Administrator"/>
               </Picker>
             </View>
           </View>
@@ -127,18 +122,10 @@ const AddUserScreen = () => {
           <View style={styles.statuscontainer}>
             <Text style={{ fontSize: 18 }}>Status</Text>
             <View style={{ position: 'absolute', left: 240 }}>
-              {/* <TextInput
-                style={styles.statustextinput3}
-                value={formData.status}
-                onChangeText={text => setFormData(text)}
-              /> */}
               <View style={styles.statusinput}>
                 <Picker
                  selectedValue={formData.status}
-                  onValueChange={itemValue => handleChange('status',itemValue)}
-                  // selectedValue={selectedItem}
-                  // onValueChange={itemValue => setSelectedItem(itemValue)}
-                >
+                  onValueChange={itemValue => handleChange('status',itemValue)}>
                   <Picker.Item label="Active" value="Active" />
                   <Picker.Item label="Inactive" value="Inactive" />
                   <Picker.Item label="All" value="All" />
@@ -184,7 +171,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     backgroundColor: '#2b50c0',
     color: 'white',
-    paddingHorizontal: 10,
+    paddingHorizontal:10,
     borderRadius: 6,
   },
   photo: {
@@ -307,7 +294,6 @@ const styles = StyleSheet.create({
     height: 40,
     width: 120,
     margin: 10,
-    // paddingHorizontal:8,
     borderWidth:1,
     borderColor:'grey',
     borderRadius:5
