@@ -21,6 +21,7 @@
     "react-native-element-dropdown": "^2.12.4",
     "react-native-safe-area-context": "^5.7.0",
     "react-native-screens": "^4.24.0",
+    "react-native-search-bar": "^3.5.1",
     "react-native-vector-icons": "^10.3.0"
   },
   "devDependencies": {

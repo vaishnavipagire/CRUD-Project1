@@ -1,5 +1,4 @@
 import React from 'react';
-import { View ,Text } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserListScreen from './src/screens/UserListScreen'
@@ -12,7 +11,7 @@ const App = () => {
        <Stack.Navigator>
          <Stack.Screen name="UserListScreen" component={UserListScreen} 
          options={{
-        headerShown:false,
+          headerShown:false,
          headerTitleAlign:'center'
         }}/> 
         <Stack.Screen name="AddUserScreen" component={AddUserScreen}
