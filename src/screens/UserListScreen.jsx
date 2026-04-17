@@ -1,0 +1,235 @@
+import React,{ useEffect, useState} from 'react';
+import {
+  View,
+  Text,
+  FlatList,
+  StyleSheet,
+  TextInput,
+  Image,
+  TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/dist/Feather';
+import Squarecircle from 'react-native-vector-icons/dist/Feather';
+import Searchicon from 'react-native-vector-icons/dist/EvilIcons';
+import { useNavigation } from '@react-navigation/native';
+import {deleteUser} from '../services/api';
+
+ const UserListScreen = () => {
+  const navigation = useNavigation();
+
+  const [data, setData] = useState();
+  const [filteredData, setFilteredData] = useState([]);
+  const [search, setSearch] = useState('');
+  const [refreshing, setRefreshing] = useState(false);
+  // const [loading, setLoading] = useState(true);
+
+     const getAPIData = async () => {
+    try{
+       const url = 'https://69c275e57518bf8facbe6b7a.mockapi.io/users/userList';
+      let result = await fetch(url);
+      result = await result.json();
+      setData(result);
+     setFilteredData(result);
+    }
+    catch (error) {
+      console.error("Fetch error:", error);
+    }
+  };
+  useEffect(() => {
+    getAPIData();
+  }, []);
+  const handledelete  = async(id)=>{
+         await deleteUser(id)
+            getAPIData();//refresh list
+       };
+
+//Reload
+   const onRefresh = () => {
+    setRefreshing(true);
+    getAPIData(); 
+  };
+
+  //Refresh
+  const handleSearch = text => {
+    setSearch(text);
+    if (!text) {
+      setFilteredData(data);
+      return;
+    }
+    const filtered = data.filter(item =>
+      item.name ?.toLowerCase().includes(text.toLowerCase())
+    );
+    setFilteredData(filtered);
+  };
+
+     //Item UI
+    const renderItem = ({ item }) => (
+     
+    <View style={styles.container1}>
+      <Image source={{ uri: item.avatar }} style={styles.image} />
+      <View style={styles.Container3}>
+        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
+        <Text style={{ fontSize: 16 }}>{item.email}</Text>
+        <Text style={{ fontSize: 16 }}>{item.phone}</Text>
+      </View>
+
+      <TouchableOpacity
+        style={styles.deleteBtn}
+        onPress={()=>{navigation.navigate('AddUserScreen'),{item:item}}}>
+        <Text style={{ color: 'white' }}>Go</Text>
+      </TouchableOpacity>
+ </View>
+    )
+      {/* <TouchableOpacity
+        style={styles.updateBtn}
+       onPress={()=>navigation.navigate('AddUserScreen',{item})}>
+        <Text style={{ color: 'white' }}>update</Text>
+      </TouchableOpacity> */}
+   <View style={styles.hzline1}>
+ </View>
+   
+  return(
+    <View style={styles.container}>
+      <View style={{flexDirection:"row",justifyContent:"space-between",marginHorizontal:20}}>
+        <Text style={styles.text}>All Users</Text>
+        <Icon name="plus" size={17} style={styles.icon}
+        onPress={() => navigation.navigate('AddUserScreen')}/>
+      </View>
+      <View>
+          <Searchicon name="search" size={30} style={styles.searchicon} />
+          <TextInput style={styles.searchBar} placeholder="Search users"
+            value={search} onChangeText={handleSearch}/>
+      </View>
+      
+      {/* {loading ?(
+        <Text style={{textAlign:'center',marginTop:20}}>Loading</Text>
+      );
+    }; */}
+       <View>
+       <FlatList
+        data={filteredData}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        refreshing={refreshing}
+        onRefresh={onRefresh}
+      />
+      </View>
+      <Squarecircle name="plus" size={45} style={styles.circleicon}
+        onPress={() => navigation.navigate('AddUserScreen')}/>
+      </View>
+  );
+}
+export default UserListScreen;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    border: 1,
+    padding: 3,
+    top:30,
+  },
+  image: {
+    height: 60,
+    width: 60,
+    borderRadius: 47,
+    marginRight:10,
+  },
+  text: {
+     fontSize: 21,
+     fontWeight: 'bold',
+     color:"black"
+  },
+    searchBar: {
+    paddingLeft: 40,
+    paddingVertical: 8,
+    borderRadius: 6,
+    fontSize: 15,
+    color: 'black',
+    marginTop: 20,
+    borderWidth: 1,
+    borderColor: 'black',
+  },
+  hzline:{
+    height:1,
+    backgroundColor:'grey',
+ },
+  icon: {
+    height:22,
+    width:22,
+    color:'grey',
+    borderWidth:2,
+    borderRadius:1,
+    borderColor:'grey',
+ },
+  searchicon: {
+    position: 'absolute',
+    left: 8,
+    top:25,
+   },
+  circleicon: {
+    position:"absolute",
+    color:'white',
+    backgroundColor:'blue',
+    bottom:70,
+    height:50,
+    width:50,
+    right:5,
+    borderWidth:1,
+    borderRadius:30,
+    borderColor:'grey',
+  },
+  item: {
+    fontSize: 18,
+    padding: 10,
+  },
+  container1: {
+    flex: 1,
+    flexDirection:"row",
+    alignItems:"flex-start",
+    padding: 15,
+    fontWeight: 'bold',
+  },
+  Container3: {
+    padding:6,
+  },
+  // updateBtn:{
+  //    position:'absolute',
+  //   backgroundColor:'orange',
+  //   borderRadius: 4,
+  //   paddingVertical: 2,
+  //   height: 25,
+  //   width: 65,
+  //   right: 0,
+  //   padding:10,
+  //   margin:30,
+  //   bottom: 12,
+  //   left:100,
+  // },
+  deleteBtn:{
+    position:'absolute',
+    backgroundColor:'red',
+    borderRadius: 4,
+    paddingVertical: 3,
+    height: 25,
+    width: 65,
+    right: 0,
+    padding: 12,
+    bottom: 10,
+  },
+  hzline1:{
+    height:1,
+    width:'100%',
+    right:20,
+    backgroundColor:'grey',
+  },
+  // updatebutton: {
+  //   position: 'absolute',
+  //   backgroundColor: 'red',
+  //   borderRadius: 4,
+  //   paddingVertical: 3,
+  //   height: 25,
+  //   width: 65,
+  //   right: 0,
+  //   padding: 10,
+  //   top: 20,
+  // },
+  
+});

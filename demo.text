@@ -12,33 +12,32 @@ import { Picker } from '@react-native-picker/picker';
 import { useNavigation } from '@react-navigation/native';
 import { deleteUser } from '../services/api';
 import { useRoute } from '@react-navigation/native';
-import { createUser, updateUser } from '../services/api';
+import { createUser,updateUser} from '../services/api';
 
 const AddUserScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
 
-  const editItem = route.params?.item;
+  const editItem = route.params?.item.name;
 
-  // const [selectedItem, setSelectedItem] = useState();
+  const [selectedItem, setSelectedItem] = useState();
   const [formData, setFormData] = useState({
-    id: editItem?.id || '',
-    name: editItem?.name || '',
-    email: editItem?.email || '',
-    role: editItem?.role || '',
-    phone: editItem?.phone || '',
-    status: editItem?.status || '',
+    name:'',
+    email:'',
+    role:'',
+    phone:'',
+    status:'',
   });
-  useEffect(() => {
-    if (editItem) {
-      setFormData(editItem);
-    }
-  }, []);
-  const handleChange = (key, value) => {
-    setFormData({ ...formData, [key]: value });
-  };
+  useEffect(()=>{
+  if(editItem){
+    setFormData(editItem);
+  }
+},[]);
+  const handleChange = (key, value)=>{
+    setFormData({...setFormData, [key]:value});
+  }
   const handleSave = async () => {
-    if (editItem) {
+       if (editItem) {
       await updateUser(editItem.id, formData);
     } else {
       await createUser(formData);
@@ -47,17 +46,16 @@ const AddUserScreen = () => {
   };
 
   const handledelete = async () => {
-    await deleteUser(editItem.id);
-    navigation.navigate('UserListScreen');
-  };
-  
-  return (
+     await deleteUser(editItem.id);
+     navigation.navigate('UserListScreen');
+    } 
+   return (
     <View style={styles.container}>
       <View style={styles.header}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.text}>Cancel</Text>
         </TouchableOpacity>
-        <Text style={styles.text1}>Add/Edit User</Text>
+        <Text style={styles.text1}>{editItem ? 'Edit User' : 'Add User'}</Text>
         <TouchableOpacity onPress={() => handleSave()}>
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
@@ -67,23 +65,9 @@ const AddUserScreen = () => {
       <View>
         <View>
           <Image
-            source={
-                 editItem?.avatar
-                ? { uri: editItem.avatar }
-                : require('../assets/Imageicon.jpg') 
-            }
-            style={styles.imageicon}
-          />
+            source={require('../assets/Imageicon.jpg')}
+            style={styles.imageicon}/>
         </View>
-
-        {/* <Image
-  source={
-    // Use editItem (from route params) or formData (current state)
-    editItem?.avatar 
-      ? { uri: editItem.avatar } 
-      : require('./path/to/default-avatar.png') // Fallback if no avatar exists
-  }
-/> */}
 
         <TouchableOpacity style={styles.edit}>
           <Text style={{ color: 'blue', left: 15, top: 5 }}>Edit photo</Text>
@@ -97,16 +81,14 @@ const AddUserScreen = () => {
           style={styles.textinput}
           placeholder="Enter your name"
           value={formData.name}
-          onChangeText={text => handleChange('name', text)}
-        />
+          onChangeText={(text) =>handleChange('name',text)}/>
 
         <Text style={{ fontSize: 17, top: 15 }}>Email</Text>
         <TextInput
           style={styles.textinput1}
           placeholder="Enter your email"
           value={formData.email}
-          onChangeText={text => handleChange('email', text)}
-        />
+          onChangeText={(text) => handleChange('email',text)}/>
 
         <View style={styles.hzline3}></View>
         <View style={styles.rolecontainer}>
@@ -114,8 +96,8 @@ const AddUserScreen = () => {
           <View style={{ left: 166 }}>
             <View style={styles.roleDropdownList}>
               <Picker
-                selectedValue={formData.role}
-                onValueChange={itemValue => handleChange('role', itemValue)}
+                selectedValue={selectedItem}
+                onValueChange={itemValue => setSelectedItem(itemValue)}
               >
                 <Picker.Item label="Admin" value="Admin" />
                 <Picker.Item label="Manager" value="Manager" />
@@ -132,7 +114,7 @@ const AddUserScreen = () => {
               <TextInput
                 style={styles.phoneinput}
                 placeholder="+9124567899"
-                onChangeText={value => handleChange('phone', value)}
+                onChangeText={(value) => handleChange('phone',value)}
                 value={formData.phone}
               />
             </View>
@@ -141,10 +123,15 @@ const AddUserScreen = () => {
           <View style={styles.statuscontainer}>
             <Text style={{ fontSize: 18 }}>Status</Text>
             <View style={{ position: 'absolute', left: 240 }}>
+              <TextInput
+                style={styles.statustextinput3}
+                value={formData.status}
+                onChangeText={text => setFormData(text)}
+              />
               <View style={styles.statusinput}>
                 <Picker
-                  selectedValue={formData.status}
-                  onValueChange={itemValue => handleChange('status', itemValue)}
+                  selectedValue={selectedItem}
+                  onValueChange={itemValue => setSelectedItem(itemValue)}
                 >
                   <Picker.Item label="Active" value="Active" />
                   <Picker.Item label="Inactive" value="Inactive" />
@@ -159,8 +146,7 @@ const AddUserScreen = () => {
       <View style={styles.hzline6}></View>
       <TouchableOpacity
         style={styles.deletebutton}
-        onPress={() => handledelete()}
-      >
+        onPress={() => handledelete()}>
         <Text style={{ color: 'white' }}>Delete User</Text>
       </TouchableOpacity>
     </View>
@@ -168,6 +154,7 @@ const AddUserScreen = () => {
 };
 const styles = StyleSheet.create({
   container: {
+    //  flex:1,
     padding: 20,
   },
   header: {
@@ -188,12 +175,11 @@ const styles = StyleSheet.create({
     right: 30,
   },
   text2: {
-    fontSize: 17,
+    fontSize: 20,
     backgroundColor: '#2b50c0',
     color: 'white',
-    paddingHorizontal: 14,
+    paddingHorizontal: 10,
     borderRadius: 6,
-    paddingVertical: 3,
   },
   photo: {
     height: 200,
@@ -312,12 +298,10 @@ const styles = StyleSheet.create({
   },
   statusinput: {
     position: 'absolute',
-    height: 40,
-    width: 120,
+    height: 110,
+    width: 140,
     margin: 10,
-    borderWidth: 1,
-    borderColor: 'grey',
-    borderRadius: 5,
+    paddingHorizontal: 8,
   },
   hzline6: {
     height: 1,
