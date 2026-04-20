@@ -20,7 +20,6 @@ const AddUserScreen = () => {
 
   const editItem = route.params?.item;
 
-  // const [selectedItem, setSelectedItem] = useState();
   const [formData, setFormData] = useState({
     id: editItem?.id || '',
     name: editItem?.name || '',
@@ -75,15 +74,6 @@ const AddUserScreen = () => {
             style={styles.imageicon}
           />
         </View>
-
-        {/* <Image
-  source={
-    // Use editItem (from route params) or formData (current state)
-    editItem?.avatar 
-      ? { uri: editItem.avatar } 
-      : require('./path/to/default-avatar.png') // Fallback if no avatar exists
-  }
-/> */}
 
         <TouchableOpacity style={styles.edit}>
           <Text style={{ color: 'blue', left: 15, top: 5 }}>Edit photo</Text>

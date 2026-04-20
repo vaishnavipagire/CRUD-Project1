@@ -8,6 +8,7 @@ import {
   Image,
   TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Feather';
+import FilterIcon from 'react-native-vector-icons/dist/AntDesign';
 import Squarecircle from 'react-native-vector-icons/dist/Feather';
 import Searchicon from 'react-native-vector-icons/dist/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
@@ -46,7 +47,7 @@ import { getAPIData } from '../services/api';
   const handleSearch = (text) => {
     setSearch(text);
     
-    if(text === ' '){
+    if(text === ''){
       setFilteredData(data);
       return;
     }
@@ -86,6 +87,8 @@ import { getAPIData } from '../services/api';
     <View style={styles.container}>
       <View style={{flexDirection:"row",justifyContent:"space-between",marginHorizontal:20}}>
         <Text style={styles.text}>All Users</Text>
+        <FilterIcon name="filter" size={27} style={styles.filtericon}
+        onPress={() => navigation.navigate('Filter')}/>
         <Icon name="plus" size={17} style={styles.icon}
         onPress={() => navigation.navigate('AddUserScreen')}/>
       </View>
@@ -143,6 +146,10 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderWidth: 1,
     borderColor: 'black',
+  },
+  filtericon:{
+     top:10,
+     left:90,
   },
   icon: {
     height:22,
