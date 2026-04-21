@@ -15,6 +15,7 @@ import { useRoute } from '@react-navigation/native';
 import { createUser, updateUser } from '../services/api';
 
 const AddUserScreen = () => {
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -28,16 +29,55 @@ const AddUserScreen = () => {
     phone: editItem?.phone || '',
     status: editItem?.status || '',
   });
-  useEffect(() => {
-    if (editItem) {
+   const[error, setError] = useState({});
+
+    useEffect(() => {
+ if (editItem) {
       setFormData(editItem);
     }
   }, []);
   const handleChange = (key, value) => {
     setFormData({ ...formData, [key]: value });
+
+    setError({...error,[key]:''});
   };
+
+  //Validation Function
+  const validate =()=> {
+     let newErrors = {};
+
+     //Name
+      if(!formData.name){
+      newErrors.name ='Name is required';
+     }
+     else if(/^[A-Za-z\s]+$/.test(formData.name))
+      {
+      newErrors.name='Only letters allowed';
+     }
+     //Email
+      if(!formData.email)
+        {
+      newErrors.email ='Email is required';
+     }
+     else if(!/\S+@\S+\.\S+/.test(formData.email)){
+      newErrors.email='Invalid email';
+     }
+     //Phone
+      if(!formData.phone)
+        {
+      newErrors.phone ='Phone is required';
+     }
+     else if(!/^\d{10}$/.test(formData.phone)){
+      newErrors.phone='Phone must be 10 digits';
+     }
+     setError(newErrors);
+
+     return Object.keys(newErrors).length === 0;
+  }
   const handleSave = async () => {
-    if (editItem) {
+    if(!validate())return;
+  
+  if (editItem) {
       await updateUser(editItem.id, formData);
     } else {
       await createUser(formData);
@@ -70,7 +110,7 @@ const AddUserScreen = () => {
                  editItem?.avatar
                 ? { uri: editItem.avatar }
                 : require('../assets/Imageicon.jpg') 
-            }
+               }
             style={styles.imageicon}
           />
         </View>
@@ -89,6 +129,7 @@ const AddUserScreen = () => {
           value={formData.name}
           onChangeText={text => handleChange('name', text)}
         />
+          {error.name && <Text style={{ fontSize:15,color:'red',top:7,}}>{error.name}</Text>}
 
         <Text style={{ fontSize: 17, top: 15 }}>Email</Text>
         <TextInput
@@ -97,6 +138,7 @@ const AddUserScreen = () => {
           value={formData.email}
           onChangeText={text => handleChange('email', text)}
         />
+          {error.email && <Text style={{ fontSize:15,color:'red', top:8}}>{error.email}</Text>}
 
         <View style={styles.hzline3}></View>
         <View style={styles.rolecontainer}>
@@ -105,8 +147,7 @@ const AddUserScreen = () => {
             <View style={styles.roleDropdownList}>
               <Picker
                 selectedValue={formData.role}
-                onValueChange={itemValue => handleChange('role', itemValue)}
-              >
+                onValueChange={itemValue => handleChange('role', itemValue)}>
                 <Picker.Item label="Admin" value="Admin" />
                 <Picker.Item label="Manager" value="Manager" />
                 <Picker.Item label="Administrator" value="Administrator" />
@@ -118,14 +159,15 @@ const AddUserScreen = () => {
         <View>
           <View style={styles.phonecontainer}>
             <Text style={{ fontSize: 18 }}>Phone Number</Text>
-            <View style={{ position: 'absolute', left: 380 }}>
+            <View style={{ left: 260 }}>
               <TextInput
                 style={styles.phoneinput}
                 placeholder="+9124567899"
                 onChangeText={value => handleChange('phone', value)}
                 value={formData.phone}
-              />
-            </View>
+                />
+                {error.phone && <Text style={{ fontSize:15,color:'red',right:30,top:50}}>{error.phone}</Text>}
+          </View>
           </View>
 
           <View style={styles.statuscontainer}>
@@ -134,8 +176,7 @@ const AddUserScreen = () => {
               <View style={styles.statusinput}>
                 <Picker
                   selectedValue={formData.status}
-                  onValueChange={itemValue => handleChange('status', itemValue)}
-                >
+                  onValueChange={itemValue => handleChange('status', itemValue)}>
                   <Picker.Item label="Active" value="Active" />
                   <Picker.Item label="Inactive" value="Inactive" />
                   <Picker.Item label="All" value="All" />
@@ -147,10 +188,10 @@ const AddUserScreen = () => {
       </View>
 
       <View style={styles.hzline6}></View>
+    
       <TouchableOpacity
         style={styles.deletebutton}
-        onPress={() => handledelete()}
-      >
+        onPress={() => handledelete()}>
         <Text style={{ color: 'white' }}>Delete User</Text>
       </TouchableOpacity>
     </View>
@@ -268,7 +309,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginTop: 6,
     padding: 1,
-    paddingVertical: 10,
+   paddingVertical: 10,
   },
   phoneinput: {
     position: 'absolute',
@@ -285,7 +326,7 @@ const styles = StyleSheet.create({
   statuscontainer: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 4,
+    marginTop: 20,
     padding: 5,
     paddingVertical: 20,
   },
@@ -347,3 +388,4 @@ const styles = StyleSheet.create({
   },
 });
 export default AddUserScreen;
+    
