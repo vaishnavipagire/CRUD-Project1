@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserListScreen from '../screens/UserListScreen';
 import AddUserScreen from '../screens/AddUserScreen';
 import Filter from '../components/Filter';
+import RoleList from '../components/RoleList'
 
 const Stack = createNativeStackNavigator ();
 const AppNavigator = () => {
@@ -24,7 +25,18 @@ const AppNavigator = () => {
                 <Stack.Screen name="Filter" component={Filter} 
                 options={{
                  headerShown:true,
-               }}/> 
+                  headerStyle: {
+                  backgroundColor: '#5F9EA0', 
+                 },
+             }}/> 
+
+             <Stack.Screen name='RoleList' component={RoleList} 
+                options={{
+                 headerShown:true,
+                  headerStyle: {
+                  backgroundColor: '#5F9EA0', 
+                 },
+             }}/>
               </Stack.Navigator>
             </NavigationContainer>
   )

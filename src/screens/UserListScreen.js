@@ -8,7 +8,7 @@ import {
   Image,
   TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Feather';
-import FilterIcon from 'react-native-vector-icons/dist/AntDesign';
+import FilterIcon from 'react-native-vector-icons/dist/FontAwesome';
 import Squarecircle from 'react-native-vector-icons/dist/Feather';
 import Searchicon from 'react-native-vector-icons/dist/EvilIcons';
 import { useNavigation } from '@react-navigation/native';

@@ -41,8 +41,7 @@ const AddUserScreen = () => {
 
     setError({...error,[key]:''});
   };
-
-  //Validation Function
+    //Validation Function
   const validate =()=> {
      let newErrors = {};
 
@@ -50,7 +49,7 @@ const AddUserScreen = () => {
       if(!formData.name){
       newErrors.name ='Name is required';
      }
-     else if(/^[A-Za-z\s]+$/.test(formData.name))
+     else if(!/^[A-Za-z\s]+$/.test(formData.name))
       {
       newErrors.name='Only letters allowed';
      }
@@ -68,7 +67,7 @@ const AddUserScreen = () => {
       newErrors.phone ='Phone is required';
      }
      else if(!/^\d{10}$/.test(formData.phone)){
-      newErrors.phone='Phone must be 10 digits';
+      newErrors.phone = 'Phone must be 10 digits';
      }
      setError(newErrors);
 
@@ -120,30 +119,30 @@ const AddUserScreen = () => {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.hzline1}></View>
+     <View style={styles.hzline1}></View>
       <View style={{ top: 36 }}>
-        <Text style={{ fontSize: 17, top: 10 }}>Full Name</Text>
+        <Text style={styles.label}>Full Name</Text>
         <TextInput
-          style={styles.textinput}
+          style={styles.nameinput}
           placeholder="Enter your name"
           value={formData.name}
           onChangeText={text => handleChange('name', text)}
         />
-          {error.name && <Text style={{ fontSize:15,color:'red',top:7,}}>{error.name}</Text>}
+          {error.name && <Text style = {styles.error}>{error.name}</Text>}
 
-        <Text style={{ fontSize: 17, top: 15 }}>Email</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
-          style={styles.textinput1}
+          style={styles.emailinput}
           placeholder="Enter your email"
           value={formData.email}
           onChangeText={text => handleChange('email', text)}
         />
-          {error.email && <Text style={{ fontSize:15,color:'red', top:8}}>{error.email}</Text>}
+           {error.email && <Text style = {styles.error}>{error.email}</Text>}
 
         <View style={styles.hzline3}></View>
         <View style={styles.rolecontainer}>
-          <Text style={{ fontSize: 19 }}>Role</Text>
-          <View style={{ left: 166 }}>
+          <Text style={styles.label}>Role</Text>
+          <View>
             <View style={styles.roleDropdownList}>
               <Picker
                 selectedValue={formData.role}
@@ -158,20 +157,20 @@ const AddUserScreen = () => {
 
         <View>
           <View style={styles.phonecontainer}>
-            <Text style={{ fontSize: 18 }}>Phone Number</Text>
-            <View style={{ left: 260 }}>
+            <Text style={styles.label1}>Phone Number</Text>
+            <View>
               <TextInput
                 style={styles.phoneinput}
                 placeholder="+9124567899"
                 onChangeText={value => handleChange('phone', value)}
-                value={formData.phone}
-                />
-                {error.phone && <Text style={{ fontSize:15,color:'red',right:30,top:50}}>{error.phone}</Text>}
+                value={formData.phone}/>
+
+                {error.phone && <Text style = {styles.error}>{error.phone}</Text>}
           </View>
           </View>
 
           <View style={styles.statuscontainer}>
-            <Text style={{ fontSize: 18 }}>Status</Text>
+            <Text style={styles.label1}>Status</Text>
             <View style={{ position: 'absolute', left: 240 }}>
               <View style={styles.statusinput}>
                 <Picker
@@ -199,13 +198,15 @@ const AddUserScreen = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
+    flex:1,
+    padding:10,
+    backgroundColor:'#fff',
   },
   header: {
-    justifyContent: 'space-evenly',
+    justifyContent:'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: 10,
+    paddingTop:10,
   },
   text: {
     paddingLeft: 0,
@@ -256,6 +257,10 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     top: 35,
   },
+  label:{
+    fontSize:20,
+    marginTop:15,
+  },
   button: {
     alignItems: 'center',
     backgroundColor: 'red',
@@ -265,21 +270,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 130,
     paddingVertical: 6,
   },
-  textinput: {
+  nameinput: {
     borderWidth: 1,
-    top: 15,
-    marginBottom: 10,
-    borderRadius: 4,
     borderColor: 'grey',
-    padding: 10,
-  },
-  textinput1: {
-    borderWidth: 1,
-    top: 20,
-    marginBottom: 10,
-    borderRadius: 4,
+     borderRadius: 4,
+     padding: 10,
+     marginTop: 6,
+   },
+  emailinput: {
+     borderWidth: 1,
     borderColor: 'grey',
-    padding: 11,
+     borderRadius: 4,
+     padding: 10,
+     marginTop: 6,
   },
   hzline3: {
     height: 1,
@@ -289,83 +292,59 @@ const styles = StyleSheet.create({
     top: 20,
   },
   rolecontainer: {
-    flexWrap: 'wrap',
-    flexDirection: 'row',
-    marginTop: 30,
-    padding: 2,
+     flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginTop: 20,
   },
   roleDropdownList: {
     borderWidth: 1,
     borderColor: 'grey',
-    width: 165,
-    height: 39,
-    marginBottom: 1,
-    borderRadius: 4,
-    marginTop: 3,
-    paddingHorizontal: 1,
+    width: 150,
+    height:38,
+    borderRadius:4,
+    marginTop:12,
   },
   phonecontainer: {
-    flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 6,
-    padding: 1,
-   paddingVertical: 10,
+   justifyContent:'space-between',
+   alignItems:'center',
   },
+  label1:{
+     fontSize:20,
+    },
   phoneinput: {
-    position: 'absolute',
-    right: 2,
     borderWidth: 1,
     borderColor: 'grey',
-    borderRadius: 4,
-    margin: 8,
-    padding: 10,
-    height: 39,
-    width: 165,
-    flexDirection: 'row',
-  },
+     borderRadius:4,
+     padding:8,
+     width:148,
+     marginTop:15,
+    },
+  error:{
+    color:'red',
+    fontSize:18,
+   },
   statuscontainer: {
-    flexWrap: 'wrap',
     flexDirection: 'row',
-    marginTop: 20,
-    padding: 5,
-    paddingVertical: 20,
-  },
-  statustextinput3: {
-    position: 'absolute',
-    borderWidth: 1,
-    borderColor: 'grey',
-    borderRadius: 4,
-    margin: 13,
-    height: 39,
-    width: 116,
-    flexWrap: 'wrap',
-    flexDirection: 'row',
+    justifyContent:'space-between',
+    alignItems:'center',
+    marginTop: 10,
   },
   statusinput: {
-    position: 'absolute',
-    height: 40,
-    width: 120,
-    margin: 10,
     borderWidth: 1,
     borderColor: 'grey',
-    borderRadius: 5,
-  },
+    width: 149,
+    height:39,
+    borderRadius:4,
+    marginTop:13,
+ },
   hzline6: {
     height: 1,
     width: 500,
     right: 20,
     backgroundColor: 'grey',
-    top: 30,
-  },
-  container5: {
-    flex: 1,
-  },
-  hzline6: {
-    height: 1,
-    width: 500,
-    right: 20,
-    backgroundColor: 'grey',
-    top: 31,
+    top:55,
   },
   deletebutton: {
     position: 'absolute',
@@ -376,7 +355,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     paddingVertical: 6,
     paddingHorizontal: 130,
-    marginTop: 850,
+    marginTop: 810,
     Color: 'white',
   },
   hzline: {
