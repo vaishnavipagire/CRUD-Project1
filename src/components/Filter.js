@@ -1,30 +1,66 @@
-import { View, Text,TextInput , StyleSheet, TouchableOpacity } from 'react-native'
-import React from 'react'
+import { View, Text, StyleSheet,TouchableOpacity, Modal } from 'react-native'
+import React, { useState } from 'react'
 import { useNavigation } from '@react-navigation/native'
 
 const Filter = () => {
   const navigation = useNavigation()
-  return (
-    <View style={styles.Filtercontainer}>
-    <Text style ={styles.text}>Role</Text>
-    
-       <TouchableOpacity style={{flexDirection:'row'}}onPress ={()=> navigation.navigate('RoleList')}>
-        <Text style={styles.button}>Select</Text>
-        <Text style={styles.selectarrow}> {'>'} </Text>
-       </TouchableOpacity>
-    
- 
 
-      <Text style ={styles.text}>Status</Text>
-      <TouchableOpacity style={{flexDirection:'row'}}>
-        <Text style={styles.button}>Select</Text>
-        <Text style={styles.selectarrow}> {'>'} </Text>
+  const[modalvisible, setModalVisible] = useState(false);
+
+ return (
+    <View style={styles.Filtercontainer}>
+      // Role
+    <Text style ={styles.text}>Role</Text>
+     <TouchableOpacity style={{flexDirection:'row'}}
+      onPress ={()=> navigation.navigate('Role')}>
+      <Text style={styles.button}>Select</Text>
+       <Text style={styles.selectarrow}> {'>'} </Text>
        </TouchableOpacity>
-     
+
+    //Status
+     <Text style ={styles.text}>Status</Text>
+      <TouchableOpacity style={{flexDirection:'row'}} 
+      onPress ={()=>setModalVisible(true)}>
+       
+      <Text style={styles.button}>Select</Text>
+        <Text style={styles.selectarrow}> {' >'} </Text>
+       </TouchableOpacity>
+      
+     //Button
+     <View style={styles.bottomButtons}>
       <TouchableOpacity >
         <Text style={styles.clearbutton}>Clear</Text>
         <Text style={styles.applybutton}>Apply</Text>
       </TouchableOpacity>
+     </View>
+
+     //Modal
+     <Modal
+      visible={modalvisible}
+      transparent={true}
+      animationType="slide">
+        <View style={styles.modalBackground}>
+         <View style={styles.modalContainer}>
+       <Text style={styles.modalTitle}>Select Status</Text>
+
+       <TouchableOpacity>
+        <Text style={styles.option}>Active</Text>
+       </TouchableOpacity>
+
+       <TouchableOpacity>
+        <Text style={styles.option}>InActive</Text>
+        <Text>InActive</Text>
+       </TouchableOpacity>
+
+       <TouchableOpacity>
+         {styles.closebtn}
+        onPress={()=> setModalVisible(false)}
+       </TouchableOpacity>
+
+       <Text style={{color:'blue'}}>close</Text>
+        </View>
+        </View>
+     </Modal>
     </View>
   )
 }
@@ -54,7 +90,11 @@ selectarrow:{
  right:40,
  top:10,
  },
-clearbutton:{
+ bottomButtons:{
+flexDirection:'row',
+justifyContent:'space-between',
+ },
+ clearbutton:{
   fontSize:20,
   borderWidth:1,
   borderRadius:20,
@@ -78,4 +118,28 @@ applybutton:{
   elevation:8,
   backgroundColor:'#5F9EA0',
 },
+modalBackground:{
+flex:1,
+justifyContent:'center',
+alignItems:'center',
+backgroundColor:"PINK"
+},
+modalContainer:{
+width:200,
+backgroundColor:'white',
+padding:20,
+borderRadius:20,
+elevation:10,
+},
+modalTitle:{
+fontSize:18,
+marginBottom:10,
+},
+option:{
+  fontSize:20,
+  paddingVertical:7,
+},
+closebtn:{
+  marginTop:15,
+}
 });

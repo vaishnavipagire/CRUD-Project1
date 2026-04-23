@@ -4,7 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserListScreen from '../screens/UserListScreen';
 import AddUserScreen from '../screens/AddUserScreen';
 import Filter from '../components/Filter';
-import RoleList from '../components/RoleList'
+import Role from '../components/Role'
 
 const Stack = createNativeStackNavigator ();
 const AppNavigator = () => {
@@ -30,7 +30,7 @@ const AppNavigator = () => {
                  },
              }}/> 
 
-             <Stack.Screen name='RoleList' component={RoleList} 
+             <Stack.Screen name='Role' component={Role} 
                 options={{
                  headerShown:true,
                   headerStyle: {

@@ -8,5 +8,4 @@ const EmptyState = () => {
     </View>
   )
 }
-
 export default EmptyState

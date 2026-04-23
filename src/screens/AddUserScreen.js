@@ -150,6 +150,8 @@ const AddUserScreen = () => {
                 <Picker.Item label="Admin" value="Admin" />
                 <Picker.Item label="Manager" value="Manager" />
                 <Picker.Item label="Administrator" value="Administrator" />
+                <Picker.Item label="Fronted Developer" value="Fronted Developer" />
+                <Picker.Item label="Backend Developer" value="Backend Developer" />
               </Picker>
             </View>
           </View>
