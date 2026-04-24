@@ -15,7 +15,6 @@ import { useRoute } from '@react-navigation/native';
 import { createUser, updateUser } from '../services/api';
 
 const AddUserScreen = () => {
-
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -29,54 +28,48 @@ const AddUserScreen = () => {
     phone: editItem?.phone || '',
     status: editItem?.status || '',
   });
-   const[error, setError] = useState({});
+  const [error, setError] = useState({});
 
-    useEffect(() => {
- if (editItem) {
+  useEffect(() => {
+    if (editItem) {
       setFormData(editItem);
     }
   }, []);
   const handleChange = (key, value) => {
     setFormData({ ...formData, [key]: value });
 
-    setError({...error,[key]:''});
+    setError({ ...error, [key]: '' });
   };
-    //Validation Function
-  const validate =()=> {
-     let newErrors = {};
+  //Validation Function
+  const validate = () => {
+    let newErrors = {};
 
-     //Name
-      if(!formData.name){
-      newErrors.name ='Name is required';
-     }
-     else if(!/^[A-Za-z\s]+$/.test(formData.name))
-      {
-      newErrors.name='Only letters allowed';
-     }
-     //Email
-      if(!formData.email)
-        {
-      newErrors.email ='Email is required';
-     }
-     else if(!/\S+@\S+\.\S+/.test(formData.email)){
-      newErrors.email='Invalid email';
-     }
-     //Phone
-      if(!formData.phone)
-        {
-      newErrors.phone ='Phone is required';
-     }
-     else if(!/^\d{10}$/.test(formData.phone)){
+    //Name
+    if (!formData.name) {
+      newErrors.name = 'Name is required';
+    } else if (!/^[A-Za-z\s]+$/.test(formData.name)) {
+      newErrors.name = 'Only letters allowed';
+    }
+    //Email
+    if (!formData.email) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Invalid email';
+    }
+    //Phone
+    if (!formData.phone) {
+      newErrors.phone = 'Phone is required';
+    } else if (!/^\d{10}$/.test(formData.phone)) {
       newErrors.phone = 'Phone must be 10 digits';
-     }
-     setError(newErrors);
+    }
+    setError(newErrors);
 
-     return Object.keys(newErrors).length === 0;
-  }
+    return Object.keys(newErrors).length === 0;
+  };
   const handleSave = async () => {
-    if(!validate())return;
-  
-  if (editItem) {
+    if (!validate()) return;
+
+    if (editItem) {
       await updateUser(editItem.id, formData);
     } else {
       await createUser(formData);
@@ -88,7 +81,7 @@ const AddUserScreen = () => {
     await deleteUser(editItem.id);
     navigation.navigate('UserListScreen');
   };
-  
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -100,26 +93,23 @@ const AddUserScreen = () => {
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
-
       <View style={styles.hzline}></View>
       <View>
         <View>
           <Image
             source={
-                 editItem?.avatar
+              editItem?.avatar
                 ? { uri: editItem.avatar }
-                : require('../assets/Imageicon.jpg') 
-               }
+                : require('../assets/Imageicon.jpg')
+            }
             style={styles.imageicon}
           />
         </View>
-
         <TouchableOpacity style={styles.edit}>
           <Text style={{ color: 'blue', left: 15, top: 5 }}>Edit photo</Text>
         </TouchableOpacity>
       </View>
-
-     <View style={styles.hzline1}></View>
+      <View style={styles.hzline1}></View>
       <View style={{ top: 36 }}>
         <Text style={styles.label}>Full Name</Text>
         <TextInput
@@ -128,7 +118,7 @@ const AddUserScreen = () => {
           value={formData.name}
           onChangeText={text => handleChange('name', text)}
         />
-          {error.name && <Text style = {styles.error}>{error.name}</Text>}
+        {error.name && <Text style={styles.error}>{error.name}</Text>}
 
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -137,7 +127,7 @@ const AddUserScreen = () => {
           value={formData.email}
           onChangeText={text => handleChange('email', text)}
         />
-           {error.email && <Text style = {styles.error}>{error.email}</Text>}
+        {error.email && <Text style={styles.error}>{error.email}</Text>}
 
         <View style={styles.hzline3}></View>
         <View style={styles.rolecontainer}>
@@ -146,12 +136,19 @@ const AddUserScreen = () => {
             <View style={styles.roleDropdownList}>
               <Picker
                 selectedValue={formData.role}
-                onValueChange={itemValue => handleChange('role', itemValue)}>
+                onValueChange={itemValue => handleChange('role', itemValue)}
+              >
                 <Picker.Item label="Admin" value="Admin" />
                 <Picker.Item label="Manager" value="Manager" />
                 <Picker.Item label="Administrator" value="Administrator" />
-                <Picker.Item label="Fronted Developer" value="Fronted Developer" />
-                <Picker.Item label="Backend Developer" value="Backend Developer" />
+                <Picker.Item
+                  label="Fronted Developer"
+                  value="Fronted Developer"
+                />
+                <Picker.Item
+                  label="Backend Developer"
+                  value="Backend Developer"
+                />
               </Picker>
             </View>
           </View>
@@ -165,10 +162,11 @@ const AddUserScreen = () => {
                 style={styles.phoneinput}
                 placeholder="+9124567899"
                 onChangeText={value => handleChange('phone', value)}
-                value={formData.phone}/>
+                value={formData.phone}
+              />
 
-                {error.phone && <Text style = {styles.error}>{error.phone}</Text>}
-          </View>
+              {error.phone && <Text style={styles.error}>{error.phone}</Text>}
+            </View>
           </View>
 
           <View style={styles.statuscontainer}>
@@ -177,7 +175,8 @@ const AddUserScreen = () => {
               <View style={styles.statusinput}>
                 <Picker
                   selectedValue={formData.status}
-                  onValueChange={itemValue => handleChange('status', itemValue)}>
+                  onValueChange={itemValue => handleChange('status', itemValue)}
+                >
                   <Picker.Item label="Active" value="Active" />
                   <Picker.Item label="Inactive" value="Inactive" />
                   <Picker.Item label="All" value="All" />
@@ -189,10 +188,11 @@ const AddUserScreen = () => {
       </View>
 
       <View style={styles.hzline6}></View>
-    
+
       <TouchableOpacity
         style={styles.deletebutton}
-        onPress={() => handledelete()}>
+        onPress={() => handledelete()}
+      >
         <Text style={{ color: 'white' }}>Delete User</Text>
       </TouchableOpacity>
     </View>
@@ -200,15 +200,15 @@ const AddUserScreen = () => {
 };
 const styles = StyleSheet.create({
   container: {
-    flex:1,
-    padding:10,
-    backgroundColor:'#fff',
+    flex: 1,
+    padding: 10,
+    backgroundColor: '#fff',
   },
   header: {
-    justifyContent:'space-between',
+    justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop:10,
+    paddingTop: 10,
   },
   text: {
     paddingLeft: 0,
@@ -259,9 +259,9 @@ const styles = StyleSheet.create({
     backgroundColor: 'grey',
     top: 35,
   },
-  label:{
-    fontSize:20,
-    marginTop:15,
+  label: {
+    fontSize: 20,
+    marginTop: 15,
   },
   button: {
     alignItems: 'center',
@@ -275,16 +275,16 @@ const styles = StyleSheet.create({
   nameinput: {
     borderWidth: 1,
     borderColor: 'grey',
-     borderRadius: 4,
-     padding: 10,
-     marginTop: 6,
-   },
+    borderRadius: 4,
+    padding: 10,
+    marginTop: 6,
+  },
   emailinput: {
-     borderWidth: 1,
+    borderWidth: 1,
     borderColor: 'grey',
-     borderRadius: 4,
-     padding: 10,
-     marginTop: 6,
+    borderRadius: 4,
+    padding: 10,
+    marginTop: 6,
   },
   hzline3: {
     height: 1,
@@ -294,59 +294,59 @@ const styles = StyleSheet.create({
     top: 20,
   },
   rolecontainer: {
-     flexDirection: 'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 20,
   },
   roleDropdownList: {
     borderWidth: 1,
     borderColor: 'grey',
     width: 150,
-    height:38,
-    borderRadius:4,
-    marginTop:12,
+    height: 38,
+    borderRadius: 4,
+    marginTop: 12,
   },
   phonecontainer: {
     flexDirection: 'row',
-   justifyContent:'space-between',
-   alignItems:'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
   },
-  label1:{
-     fontSize:20,
-    },
+  label1: {
+    fontSize: 20,
+  },
   phoneinput: {
     borderWidth: 1,
     borderColor: 'grey',
-     borderRadius:4,
-     padding:8,
-     width:148,
-     marginTop:15,
-    },
-  error:{
-    color:'red',
-    fontSize:18,
-   },
+    borderRadius: 4,
+    padding: 8,
+    width: 148,
+    marginTop: 15,
+  },
+  error: {
+    color: 'red',
+    fontSize: 18,
+  },
   statuscontainer: {
     flexDirection: 'row',
-    justifyContent:'space-between',
-    alignItems:'center',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     marginTop: 10,
   },
   statusinput: {
     borderWidth: 1,
     borderColor: 'grey',
     width: 149,
-    height:39,
-    borderRadius:4,
-    marginTop:13,
- },
+    height: 39,
+    borderRadius: 4,
+    marginTop: 13,
+  },
   hzline6: {
     height: 1,
     width: 500,
     right: 20,
     backgroundColor: 'grey',
-    top:55,
+    top: 55,
   },
   deletebutton: {
     position: 'absolute',
@@ -369,4 +369,3 @@ const styles = StyleSheet.create({
   },
 });
 export default AddUserScreen;
-    
