@@ -1,12 +1,17 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation , useRoute } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+
 
 const Filter = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+
+  const selectedRole = route.params ?.role;
 
   const [modalvisible, setModalVisible] = useState(false);
+  const [status, setStatus] = useState('');
 
   return (
     <View style={styles.container}>
@@ -15,23 +20,32 @@ const Filter = () => {
         style={{ flexDirection: 'row' }}
         onPress={() => navigation.navigate('Role')}
       >
-        <Text style={styles.button}>Select</Text>
+        <Text style={styles.button}>
+          {selectedRole ? selectedRole:'Select'}
+          </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
 
+      //Status section
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
         onPress={() => setModalVisible(true)}
       >
-        <Text style={styles.button}>Select</Text>
-        <Text style={styles.selectarrow}> {' >'} </Text>
+        <Text style={styles.button}>{status ? status : 'Select'}</Text>
+        <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
 
-      <TouchableOpacity>
-        <Text style={styles.clearbutton}>Clear</Text>
-        <Text style={styles.applybutton}>Apply</Text>
-      </TouchableOpacity>
+      //Buttons
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+        <TouchableOpacity onPress={() => setStatus('')}>
+          <Text style={styles.clearbutton}>Clear</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity>
+          <Text style={styles.applybutton}>Apply</Text>
+        </TouchableOpacity>
+      </View>
 
       <Modal
         transparent={true}
@@ -41,19 +55,45 @@ const Filter = () => {
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
+
+            //Close icon
             <Icon
               name="close"
               size={27}
-              style={styles.circleicon}
-              onPress={() => navigation.navigate('Close')}  
+              style={{ alignSelf: 'center' }}
+              onPress={() => setModalVisible(false)}
             />
-            
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text style={styles.option}>Active</Text>
+            //Active button
+            <TouchableOpacity
+              onPress={() => {
+                setStatus('Active');
+                setModalVisible(false);
+              }}
+            >
+              <Text
+                style={[
+                  styles.option,
+                  status === 'Active' && { color: 'blue', fontWeight: 'bold' },
+                ]}>Active</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={() => setModalVisible(false)}>
-              <Text style={styles.option}>InActive</Text>
+            <TouchableOpacity
+              onPress={() => {
+                setStatus('Inactive');
+                setModalVisible(false);
+              }}
+            >
+              <Text
+                style={[
+                  styles.option,
+                  status === 'InActive' && {
+                    color: 'blue',
+                    fontWeight: 'bold',
+                  },
+                ]}
+              >
+                InActive
+              </Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -100,24 +140,22 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   applybutton: {
-    fontSize: 20,
     borderWidth: 1,
+    fontSize: 20,
     borderRadius: 20,
     height: 38,
     width: 170,
-    bottom: 38,
-    marginLeft: 230,
-    paddingLeft: 55,
     paddingTop: 5,
-    elevation: 8,
+    paddingLeft: 55,
     backgroundColor: '#5F9EA0',
+    elevation: 8,
+    top: 600,
+    marginRight: 10,
   },
   circleicon: {
     backgroundColor: 'red',
-    // width:30,
-    // marginBottom:20,
-   alignSelf:'center',
-   justifyContent:'center'
+    alignSelf: 'center',
+    justifyContent: 'center',
   },
   modalBackground: {
     flex: 1,
