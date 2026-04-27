@@ -3,21 +3,25 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Filter = route => {
-  const { selectedRoles } = route.params || { selectedRoles: [] };
-  const navigation = useNavigation();
+const Filter = ({route}) => {
+  const{selectedRoles  = []} = route.params || {};
+ const navigation = useNavigation();
 
   const [modalvisible, setModalVisible] = useState(false);
-  const [status, setStatus] = useState('');
+  const [status, setStatus] = useState(''); 
 
   return (
     <View style={styles.container}>
-       <Text style={styles.text}>Role</Text>
+      <Text style={styles.textrole}>Role</Text>
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
         onPress={() => navigation.navigate('Role')}
       >
-        <Text style={styles.button}>Select</Text>
+        <Text style={styles.button}>
+           {selectedRoles.length > 0 
+            ? `${selectedRoles.join(', ')} (${selectedRoles.length})` 
+            : 'Select'}
+          </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
 
@@ -47,15 +51,15 @@ const Filter = route => {
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-            //Close icon
+           
             <Icon
               name="close"
               size={27}
               style={{ alignSelf: 'center' }}
               onPress={() => setModalVisible(false)}
             />
-            //Active button
-            <TouchableOpacity
+        
+             <TouchableOpacity style={styles.optionRow}
               onPress={() => {
                 setStatus('Active');
                 setModalVisible(false);
@@ -65,28 +69,27 @@ const Filter = route => {
                 style={[
                   styles.option,
                   status === 'Active' && { color: 'blue', fontWeight: 'bold' },
-                ]}
-              >
-                Active
-              </Text>
+                ]} > Active </Text>
+                <Icon 
+              name={status === 'Active' ? "radio-button-on" : "radio-button-off"} 
+              size={24} 
+              color={status === 'Active' ? "blue" : "gray"} 
+        />
             </TouchableOpacity>
-            <TouchableOpacity
+            <TouchableOpacity style={styles.optionRow}
               onPress={() => {
                 setStatus('Inactive');
                 setModalVisible(false);
-              }}
-            >
+              }} >
               <Text
                 style={[
-                  styles.option,
-                  status === 'InActive' && {
-                    color: 'blue',
-                    fontWeight: 'bold',
-                  },
-                ]}
-              >
-                InActive
-              </Text>
+                  styles.option, status === 'InActive' && { color: 'blue',fontWeight: 'bold',
+                  }, ]} > InActive </Text>
+                   <Icon 
+              name={status === 'Inactive' ? "radio-button-on" : "radio-button-off"} 
+              size={24} 
+              color={status === 'Inactive' ? "blue" : "gray"} 
+        />
             </TouchableOpacity>
           </View>
         </View>
@@ -98,7 +101,12 @@ export default Filter;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
+    top:12,
+  },
+  textrole:{
+   fontSize: 20,
+   marginLeft: 20,  
+  
   },
   text: {
     fontSize: 20,
@@ -120,6 +128,11 @@ const styles = StyleSheet.create({
     fontSize: 20,
     right: 40,
     top: 10,
+  },
+  title:{
+     fontSize:20,
+     right:360,
+     top:50,
   },
   clearbutton: {
     fontSize: 20,
@@ -157,12 +170,16 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: 'white',
-    // alignItems:'center',
     padding: 10,
     borderRadius: 20,
     elevation: 10,
     width: 412,
     height: 150,
+  },
+  optionRow:{
+    marginLeft:10,
+    flexDirection:'row',
+    
   },
   option: {
     fontSize: 20,
