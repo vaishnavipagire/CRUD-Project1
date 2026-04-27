@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Filter = () => {
+const Filter = route => {
+  const { selectedRoles } = route.params || { selectedRoles: [] };
   const navigation = useNavigation();
 
   const [modalvisible, setModalVisible] = useState(false);
@@ -11,7 +12,7 @@ const Filter = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Role</Text>
+       <Text style={styles.text}>Role</Text>
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
         onPress={() => navigation.navigate('Role')}
@@ -19,7 +20,8 @@ const Filter = () => {
         <Text style={styles.button}>Select</Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
-      //Status section
+
+      {/* //Status section */}
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
         style={{ flexDirection: 'row' }}
@@ -45,7 +47,6 @@ const Filter = () => {
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-
             //Close icon
             <Icon
               name="close"
@@ -131,18 +132,18 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     paddingTop: 5,
   },
-  applybutton:{
-    borderWidth:1,
-    borderRadius:20,
+  applybutton: {
+    borderWidth: 1,
+    borderRadius: 20,
     fontSize: 20,
     elevation: 8,
     paddingLeft: 55,
-    top:600,
+    top: 600,
     height: 38,
-     width: 170,
-     paddingTop: 5,
-     marginRight: 20,
-     backgroundColor: '#5F9EA0',
+    width: 170,
+    paddingTop: 5,
+    marginRight: 20,
+    backgroundColor: '#5F9EA0',
   },
   circleicon: {
     backgroundColor: 'red',
