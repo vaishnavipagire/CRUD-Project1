@@ -1,28 +1,52 @@
+import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Entypo';
+import Check from 'react-native-vector-icons/Feather';
 
 const Role = () => {
+const[hide,setHide] = useState(false);
 
   return (
     <View style={styles.container}>
-        <TouchableOpacity style={{ color: 'grey' }}>
+        <TouchableOpacity onPress={ ()=>setHide(!hide)} style={{ color: 'grey' }}>
         <Text style={styles.roletext}>Admin</Text>
-        <Icon name="circle" size={27} style={styles.circleicon} />
+        {
+          !hide ? 
+          <Icon name="circle" size={27} style={styles.circleicon} /> 
+          : 
+          <Check name="check-circle" size={27} style={styles.circleicon} />
+        }
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ color: 'grey' }}>
+      <TouchableOpacity onPress={()=>setHide(!hide)} style={{ color: 'grey' }}>
         <Text style={styles.roletext}>Manager</Text>
-        <Icon name={"circle"} size={27} style={styles.circleicon} />
-      </TouchableOpacity>
+        {
+          !hide ?
+          <Icon name={"circle"} size={27} style={styles.circleicon} />
+          :
+         <Check name="check-circle" size={27} style={styles.circleicon} />
+        }
+       </TouchableOpacity>
 
-      <TouchableOpacity style={{ color: 'grey' }}>
+      <TouchableOpacity  onPress={()=>setHide(!hide)}style={{ color: 'grey' }}>
         <Text style={styles.roletext}>Fronted Developer</Text>
-        <Icon name="circle" size={27} style={styles.circleicon} />
+        {
+          !hide ?
+          <Icon name={"circle"} size={27} style={styles.circleicon} />
+          :
+         <Check name="check-circle" size={27} style={styles.circleicon} />
+        }
       </TouchableOpacity>
 
-      <TouchableOpacity style={{ color: 'grey' }}>
+      <TouchableOpacity  onPress={()=>(!hide)}style={{ color: 'grey' }}>
         <Text style={styles.roletext}>Backend Developer</Text>
-        <Icon name="circle" size={27} style={styles.circleicon} />
+        {
+          !hide ?
+          <Icon name="circle" size={27} style={styles.circleicon} />
+          :
+          <Check name="check-circle" size={27} style={styles.circleicon} />
+        }
+        
       </TouchableOpacity>
 
       <TouchableOpacity>
@@ -50,12 +74,12 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingLeft: 12,
     paddingTop: 5,
-    backgroundColor: '#79afb1',
+   
   },
   circleicon: {
     bottom: 6,
     left: 360,
-    fontSize: 24,
+    fontSize: 26,
     position: 'absolute',
   },
   filterbutton: {
