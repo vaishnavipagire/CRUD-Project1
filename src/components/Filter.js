@@ -1,14 +1,10 @@
 import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import React, { useState } from 'react';
-import { useNavigation , useRoute } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
-
 
 const Filter = () => {
   const navigation = useNavigation();
-  const route = useRoute();
-
-  const selectedRole = route.params ?.role;
 
   const [modalvisible, setModalVisible] = useState(false);
   const [status, setStatus] = useState('');
@@ -20,12 +16,9 @@ const Filter = () => {
         style={{ flexDirection: 'row' }}
         onPress={() => navigation.navigate('Role')}
       >
-        <Text style={styles.button}>
-          {selectedRole ? selectedRole:'Select'}
-          </Text>
+        <Text style={styles.button}>Select</Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
-
       //Status section
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
@@ -35,8 +28,6 @@ const Filter = () => {
         <Text style={styles.button}>{status ? status : 'Select'}</Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
-
-      //Buttons
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TouchableOpacity onPress={() => setStatus('')}>
           <Text style={styles.clearbutton}>Clear</Text>
@@ -46,7 +37,6 @@ const Filter = () => {
           <Text style={styles.applybutton}>Apply</Text>
         </TouchableOpacity>
       </View>
-
       <Modal
         transparent={true}
         visible={modalvisible}
@@ -74,9 +64,11 @@ const Filter = () => {
                 style={[
                   styles.option,
                   status === 'Active' && { color: 'blue', fontWeight: 'bold' },
-                ]}>Active</Text>
+                ]}
+              >
+                Active
+              </Text>
             </TouchableOpacity>
-
             <TouchableOpacity
               onPress={() => {
                 setStatus('Inactive');
@@ -139,18 +131,18 @@ const styles = StyleSheet.create({
     marginLeft: 20,
     paddingTop: 5,
   },
-  applybutton: {
-    borderWidth: 1,
+  applybutton:{
+    borderWidth:1,
+    borderRadius:20,
     fontSize: 20,
-    borderRadius: 20,
-    height: 38,
-    width: 170,
-    paddingTop: 5,
-    paddingLeft: 55,
-    backgroundColor: '#5F9EA0',
     elevation: 8,
-    top: 600,
-    marginRight: 10,
+    paddingLeft: 55,
+    top:600,
+    height: 38,
+     width: 170,
+     paddingTop: 5,
+     marginRight: 20,
+     backgroundColor: '#5F9EA0',
   },
   circleicon: {
     backgroundColor: 'red',
