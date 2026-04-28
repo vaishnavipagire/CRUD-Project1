@@ -3,46 +3,62 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 
-const Filter = ({route}) => {
-  const{selectedRoles  = []} = route.params || {};
- const navigation = useNavigation();
+const Filter = ({ route }) => {
+  const { selectedRoles = [] } = route.params || {};
+  const navigation = useNavigation();
 
   const [modalvisible, setModalVisible] = useState(false);
-  const [status, setStatus] = useState(''); 
+  const [status, setStatus] = useState('');
 
   return (
     <View style={styles.container}>
       <Text style={styles.textrole}>Role</Text>
       <TouchableOpacity
-        style={{ flexDirection: 'row' }}
         onPress={() => navigation.navigate('Role')}
+        style={{ flexDirection: 'row' }}
       >
         <Text style={styles.button}>
-           {selectedRoles.length > 0 
-            ? `${selectedRoles.join(', ')} (${selectedRoles.length})` 
+          {selectedRoles.length > 0
+            ? `${selectedRoles.join(', ')} (${selectedRoles.length})`
             : 'Select'}
-          </Text>
+        </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
+      {/* <View style={{backgroundColor:'red'}}>
+      {
+        selectedRoles.map((item,idx)=>{
+          <Text key={idx}>{item[0]}</Text>
+        })
+      }
+      </View> */}
 
       {/* //Status section */}
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
-        style={{ flexDirection: 'row' }}
         onPress={() => setModalVisible(true)}
+        style={{ flexDirection: 'row' }}
       >
         <Text style={styles.button}>{status ? status : 'Select'}</Text>
-        <Text style={styles.selectarrow}> {'>'} </Text>
+        <Text style={styles.selectarrow}>{'>'}</Text>
       </TouchableOpacity>
+
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
         <TouchableOpacity onPress={() => setStatus('')}>
           <Text style={styles.clearbutton}>Clear</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate('UserListScreen', {
+              selectedRoles,
+              status,
+            })
+          }
+        >
           <Text style={styles.applybutton}>Apply</Text>
         </TouchableOpacity>
       </View>
+
       <Modal
         transparent={true}
         visible={modalvisible}
@@ -51,45 +67,43 @@ const Filter = ({route}) => {
       >
         <View style={styles.modalBackground}>
           <View style={styles.modalContainer}>
-           
-            <Icon
-              name="close"
-              size={27}
-              style={{ alignSelf: 'center' }}
-              onPress={() => setModalVisible(false)}
-            />
-        
-             <TouchableOpacity style={styles.optionRow}
+            <TouchableOpacity onPress={() => setModalVisible(false)}>
+              <Icon name="close" style={styles.closeicon} />
+            </TouchableOpacity>
+
+            <TouchableOpacity
               onPress={() => {
                 setStatus('Active');
                 setModalVisible(false);
               }}
+              style={styles.optionRow}
             >
-              <Text
-                style={[
-                  styles.option,
-                  status === 'Active' && { color: 'blue', fontWeight: 'bold' },
-                ]} > Active </Text>
-                <Icon 
-              name={status === 'Active' ? "radio-button-on" : "radio-button-off"} 
-              size={24} 
-              color={status === 'Active' ? "blue" : "gray"} 
-        />
+              <Text style={[styles.option, status === 'Active']}>Active </Text>
+              <Icon
+                name={
+                  status === 'Active' ? 'radio-button-on' : 'radio-button-off'
+                }
+                style={styles.activeicon}
+              />
             </TouchableOpacity>
-            <TouchableOpacity style={styles.optionRow}
+
+            <TouchableOpacity
               onPress={() => {
                 setStatus('Inactive');
                 setModalVisible(false);
-              }} >
-              <Text
-                style={[
-                  styles.option, status === 'InActive' && { color: 'blue',fontWeight: 'bold',
-                  }, ]} > InActive </Text>
-                   <Icon 
-              name={status === 'Inactive' ? "radio-button-on" : "radio-button-off"} 
-              size={24} 
-              color={status === 'Inactive' ? "blue" : "gray"} 
-        />
+              }}
+              style={styles.optionRow}
+            >
+              <Text style={[styles.option, status === 'InActive']}>
+                {' '}
+                InActive{' '}
+              </Text>
+              <Icon
+                name={
+                  status === 'InActive' ? 'radio-button-on' : 'radio-button-off'
+                }
+                style={styles.inactiveicon}
+              />
             </TouchableOpacity>
           </View>
         </View>
@@ -101,12 +115,11 @@ export default Filter;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top:12,
+    top: 12,
   },
-  textrole:{
-   fontSize: 20,
-   marginLeft: 20,  
-  
+  textrole: {
+    fontSize: 20,
+    marginLeft: 20,
   },
   text: {
     fontSize: 20,
@@ -129,10 +142,10 @@ const styles = StyleSheet.create({
     right: 40,
     top: 10,
   },
-  title:{
-     fontSize:20,
-     right:360,
-     top:50,
+  title: {
+    fontSize: 20,
+    right: 360,
+    top: 50,
   },
   clearbutton: {
     fontSize: 20,
@@ -176,13 +189,25 @@ const styles = StyleSheet.create({
     width: 412,
     height: 150,
   },
-  optionRow:{
-    marginLeft:10,
-    flexDirection:'row',
-    
+  closeicon: {
+    fontSize: 27,
+    alignSelf: 'center',
+  },
+  optionRow: {
+    flexDirection: 'row',
   },
   option: {
     fontSize: 20,
     paddingVertical: 7,
+  },
+  activeicon: {
+    fontSize: 25,
+    top: 10,
+    marginLeft: 300,
+  },
+  inactiveicon: {
+    fontSize: 25,
+    top: 10,
+    marginLeft: 280,
   },
 });

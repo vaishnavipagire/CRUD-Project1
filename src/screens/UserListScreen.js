@@ -15,11 +15,18 @@ import Searchicon from 'react-native-vector-icons/dist/EvilIcons';
 import { useNavigation } from '@react-navigation/native';
 import { deleteUser } from '../services/api';
 import { getAPIData } from '../services/api';
+import { useRoute } from '@react-navigation/native';
+import EmptyState from '../components/EmptyState';
 
 const UserListScreen = () => {
   const navigation = useNavigation();
+  const route = useRoute();
+  
+  const selectedRoles = 
+  route?.params?.selectedRoles || [];
+  const status = route?.params?.status || '';
 
-  const [data, setData] = useState();
+  const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
@@ -32,6 +39,26 @@ const UserListScreen = () => {
   useEffect(() => {
     loadData();
   }, []);
+
+  useEffect(()=>{
+    applyFilters();
+  },[route?.params, data]);
+  
+const applyFilters=()=>{
+  let updatedData = data;
+
+  if(selectedRoles.length > 0){
+    updatedData = updatedData.filter(item =>
+      selectedRoles.includes(item.role)
+    );
+  }
+  if(status){
+    updatedData = updatedData.filter(
+      item => item.status === status
+    );
+  }
+  setFilteredData(updatedData);
+};
 
   //Delete
   const handledelete = async id => {
@@ -49,16 +76,18 @@ const UserListScreen = () => {
     setSearch(text);
 
     if (text === '') {
-      setFilteredData(data);
+      applyFilters();
       return;
     }
-    const filtered = data.filter(item =>
+    const filtered = filteredData.filter(item =>
       item.name.toLowerCase().includes(text.toLowerCase()),
     );
     setFilteredData(filtered);
   };
+
   //Item seperate
   const Separator = () => <View style={styles.Separator} />;
+
   //Item UI
   const renderItem = ({ item }) => (
     <View style={styles.container1}>
@@ -67,6 +96,7 @@ const UserListScreen = () => {
         <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
         <Text style={{ fontSize: 16 }}>{item.role}</Text>
         <Text style={{ fontSize: 16 }}>{item.email}</Text>
+        <Text style={{ fontSize: 16 }}>{item.status}</Text>
       </View>
 
       <TouchableOpacity
@@ -127,6 +157,7 @@ const UserListScreen = () => {
           ItemSeparatorComponent={Separator}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
+        <EmptyState />
       </View>
       <Squarecircle
         name="plus"
@@ -237,3 +268,4 @@ const styles = StyleSheet.create({
     bottom: 17,
   },
 });
+
