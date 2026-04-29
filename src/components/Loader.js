@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native';
+import { Text, ActivityIndicator } from 'react-native';
 import React from 'react';
 
 const Loader = () => {
   return (
-    <View>
-      <Text>Loader</Text>
-    </View>
+    <>
+      <ActivityIndicator size="large" color="blue" />
+      <Text style={{fontSize:20}}>Plase wait </Text>
+    </>
   );
 };
-
 export default Loader;

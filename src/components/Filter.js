@@ -18,20 +18,19 @@ const Filter = ({ route }) => {
         style={{ flexDirection: 'row' }}
       >
         <Text style={styles.button}>
-          {selectedRoles.length > 0
-            ? `${selectedRoles.join(', ')} (${selectedRoles.length})`
-            : 'Select'}
+          {selectedRoles.length > 0 ? `(${selectedRoles.length})` : 'Select'}
         </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
-      {/* <View style={{backgroundColor:'red'}}>
-      {
-        selectedRoles.map((item,idx)=>{
-          <Text key={idx}>{item[0]}</Text>
-        })
-      }
-      </View> */}
-
+      
+      <View style={styles.selectTxtConatiner}>
+        <Text style={styles.selectedTxt}> Selected roles: </Text>
+        {selectedRoles.map((item, idx) => (
+          <View key={idx} style={styles.roleList}>
+            <Text style={{fontSize:20}}>{item}</Text>
+          </View>
+        ))}
+      </View>
       {/* //Status section */}
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
@@ -41,8 +40,7 @@ const Filter = ({ route }) => {
         <Text style={styles.button}>{status ? status : 'Select'}</Text>
         <Text style={styles.selectarrow}>{'>'}</Text>
       </TouchableOpacity>
-
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={styles.clearContainer}>
         <TouchableOpacity onPress={() => setStatus('')}>
           <Text style={styles.clearbutton}>Clear</Text>
         </TouchableOpacity>
@@ -58,7 +56,6 @@ const Filter = ({ route }) => {
           <Text style={styles.applybutton}>Apply</Text>
         </TouchableOpacity>
       </View>
-
       <Modal
         transparent={true}
         visible={modalvisible}
@@ -94,13 +91,13 @@ const Filter = ({ route }) => {
               }}
               style={styles.optionRow}
             >
-              <Text style={[styles.option, status === 'InActive']}>
+              <Text style={[styles.option, status === 'Inactive']}>
                 {' '}
-                InActive{' '}
+                Inactive{' '}
               </Text>
               <Icon
                 name={
-                  status === 'InActive' ? 'radio-button-on' : 'radio-button-off'
+                  status === 'Inactive' ? 'radio-button-on' : 'radio-button-off'
                 }
                 style={styles.inactiveicon}
               />
@@ -142,6 +139,19 @@ const styles = StyleSheet.create({
     right: 40,
     top: 10,
   },
+  clearContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  selectTxtConatiner: {},
+  selectedTxt: {
+    fontSize: 20,
+    margin: 10,
+  },
+  roleList: {
+    fontSize: 25,
+    marginLeft: 20,
+  },
   title: {
     fontSize: 20,
     right: 360,
@@ -154,7 +164,7 @@ const styles = StyleSheet.create({
     height: 38,
     width: 170,
     paddingLeft: 55,
-    marginTop: 600,
+    marginTop: 520,
     marginLeft: 20,
     paddingTop: 5,
   },
@@ -164,7 +174,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     elevation: 8,
     paddingLeft: 55,
-    top: 600,
+    top: 520,
     height: 38,
     width: 170,
     paddingTop: 5,

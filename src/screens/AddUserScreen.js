@@ -88,11 +88,14 @@ const AddUserScreen = () => {
         <TouchableOpacity onPress={() => navigation.goBack()}>
           <Text style={styles.text}>Cancel</Text>
         </TouchableOpacity>
+
         <Text style={styles.text1}>Add/Edit User</Text>
+
         <TouchableOpacity onPress={() => handleSave()}>
           <Text style={styles.text2}>Save</Text>
         </TouchableOpacity>
       </View>
+
       <View style={styles.hzline}></View>
       <View>
         <View>
@@ -108,6 +111,7 @@ const AddUserScreen = () => {
         <TouchableOpacity style={styles.edit}>
           <Text style={{ color: 'blue', left: 15, top: 5 }}>Edit photo</Text>
         </TouchableOpacity>
+        
       </View>
       <View style={styles.hzline1}></View>
       <View style={{ top: 36 }}>

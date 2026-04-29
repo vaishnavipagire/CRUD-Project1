@@ -16,7 +16,7 @@ const Role = ({ navigation }) => {
     }
   };
 
-  return (
+  return ( 
     <View style={styles.container}>
       {roles.map(role => (
         <TouchableOpacity
@@ -72,25 +72,25 @@ const styles = StyleSheet.create({
     fontSize: 26,
     position: 'absolute',
   },
-   filterbutton: {
+  filterbutton: {
     fontSize: 20,
     borderWidth: 1,
     borderRadius: 20,
     height: 38,
     width: 173,
-    top:480,
+    top: 480,
     paddingLeft: 35,
     margin: 20,
     paddingTop: 5,
-   },
+  },
   confirmbutton: {
     fontSize: 20,
     borderWidth: 1,
     borderRadius: 20,
     height: 38,
     width: 173,
-    top:425,
-    marginLeft:220,
+    top: 425,
+    marginLeft: 220,
     paddingLeft: 50,
     paddingTop: 5,
     elevation: 8,

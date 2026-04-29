@@ -17,24 +17,28 @@ import { deleteUser } from '../services/api';
 import { getAPIData } from '../services/api';
 import { useRoute } from '@react-navigation/native';
 import EmptyState from '../components/EmptyState';
+import Loader from '../components/Loader';
 
 const UserListScreen = () => {
   const navigation = useNavigation();
   const route = useRoute();
   
-  const selectedRoles = 
-  route?.params?.selectedRoles || [];
+  const selectedRoles = route?.params?.selectedRoles || [];
   const status = route?.params?.status || '';
 
   const [data, setData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
   const [search, setSearch] = useState('');
   const [refreshing, setRefreshing] = useState(false);
+  const [loader, setLoader] = useState(false)
 
   const loadData = async () => {
+    setLoader(true);
+
     const res = await getAPIData();
     setData(res);
     setFilteredData(res);
+    setLoader(false);
   };
   useEffect(() => {
     loadData();
@@ -44,7 +48,7 @@ const UserListScreen = () => {
     applyFilters();
   },[route?.params, data]);
   
-const applyFilters=()=>{
+ const applyFilters=()=>{
   let updatedData = data;
 
   if(selectedRoles.length > 0){
@@ -71,6 +75,12 @@ const applyFilters=()=>{
     loadData();
     setRefreshing(false);
   };
+
+  if(loader ) { 
+    return (
+      <Loader />
+    )
+  }
   //Search
   const handleSearch = text => {
     setSearch(text);
@@ -84,6 +94,11 @@ const applyFilters=()=>{
     );
     setFilteredData(filtered);
   };
+
+  const handleClear = ()=> {
+    setSearch('');
+    setFilteredData(data);
+  }
 
   //Item seperate
   const Separator = () => <View style={styles.Separator} />;
@@ -99,17 +114,17 @@ const applyFilters=()=>{
         <Text style={{ fontSize: 16 }}>{item.status}</Text>
       </View>
 
-      <TouchableOpacity
-        style={styles.editBtn}
+      <TouchableOpacity 
         onPress={() => navigation.navigate('AddUserScreen', { item })}
+        style={styles.editBtn}
       >
-        <Text style={{ color: 'white' }}>Edit</Text>
+      <Text style={{ color: 'white' }}>Edit</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity
-        style={styles.deleteBtn}
+      <TouchableOpacity  
         onPress={() => handledelete(item.id)}
-      >
+        style={styles.deleteBtn}
+         >
         <Text style={{ color: 'white' }}>delete</Text>
       </TouchableOpacity>
     </View>
@@ -124,19 +139,20 @@ const applyFilters=()=>{
         }}
       >
         <Text style={styles.text}>All Users</Text>
-        <FilterIcon
+        <FilterIcon  
+          onPress={() => navigation.navigate('Filter')}
           name="filter"
           size={27}
           style={styles.filtericon}
-          onPress={() => navigation.navigate('Filter')}
-        />
-        <Icon
+         />
+        <Icon 
+         onPress={() => navigation.navigate('AddUserScreen')}
           name="plus"
           size={17}
           style={styles.icon}
-          onPress={() => navigation.navigate('AddUserScreen')}
-        />
+         />
       </View>
+
       <View>
         <Searchicon name="search" size={30} style={styles.searchicon} />
         <TextInput
@@ -147,7 +163,12 @@ const applyFilters=()=>{
         />
       </View>
 
-      <View>
+       <View>
+        {filteredData.length === 0 ?(
+          <EmptyState onClear={handleClear}
+          />
+        ):
+      (
         <FlatList
           data={filteredData}
           renderItem={renderItem}
@@ -157,14 +178,17 @@ const applyFilters=()=>{
           ItemSeparatorComponent={Separator}
           contentContainerStyle={{ paddingBottom: 80 }}
         />
-        <EmptyState />
+      )
+      }
+      <Loader/>
+
       </View>
-      <Squarecircle
+      <Squarecircle 
+        onPress={() => navigation.navigate('AddUserScreen')}
         name="plus"
         size={45}
         style={styles.circleicon}
-        onPress={() => navigation.navigate('AddUserScreen')}
-      />
+        />
     </View>
   );
 };
