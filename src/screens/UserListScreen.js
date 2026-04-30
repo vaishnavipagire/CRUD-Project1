@@ -81,7 +81,7 @@ const UserListScreen = () => {
       <Loader />
     )
   }
-  //Search
+ // Search
   const handleSearch = text => {
     setSearch(text);
 
@@ -180,8 +180,6 @@ const UserListScreen = () => {
         />
       )
       }
-      <Loader/>
-
       </View>
       <Squarecircle 
         onPress={() => navigation.navigate('AddUserScreen')}

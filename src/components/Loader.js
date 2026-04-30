@@ -5,7 +5,7 @@ const Loader = () => {
   return (
     <>
       <ActivityIndicator size="large" color="blue" />
-      <Text style={{fontSize:20}}>Plase wait </Text>
+      <Text style={{fontSize:20,textAlign:'center'}}>Plase wait </Text>
     </>
   );
 };
