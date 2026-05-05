@@ -6,8 +6,7 @@ import {
   StyleSheet,
   TextInput,
   Image,
-  TouchableOpacity,
-} from 'react-native';
+  TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Feather';
 import FilterIcon from 'react-native-vector-icons/dist/FontAwesome';
 import Squarecircle from 'react-native-vector-icons/dist/Feather';
@@ -18,6 +17,9 @@ import { getAPIData } from '../services/api';
 import { useRoute } from '@react-navigation/native';
 import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
+import {color} from '../styles/color';
+import { fontsize } from '../styles/fontsize';
+import {padding} from '../styles/padding';
 
 const UserListScreen = () => {
   const navigation = useNavigation();
@@ -108,24 +110,24 @@ const UserListScreen = () => {
     <View style={styles.container1}>
       <Image source={{ uri: item.avatar }} style={styles.image} />
       <View style={styles.Container3}>
-        <Text style={{ fontSize: 18, fontWeight: 'bold' }}>{item.name}</Text>
-        <Text style={{ fontSize: 16 }}>{item.role}</Text>
-        <Text style={{ fontSize: 16 }}>{item.email}</Text>
-        <Text style={{ fontSize: 16 }}>{item.status}</Text>
+        <Text style={{ fontSize:fontsize.m, fontWeight: 'bold' }}>{item.name}</Text>
+        <Text style={{ fontSize: fontsize.s }}>{item.role}</Text>
+        <Text style={{ fontSize: fontsize.s }}>{item.email}</Text>
+        <Text style={{ fontSize: fontsize.s }}>{item.status}</Text>
       </View>
 
       <TouchableOpacity 
         onPress={() => navigation.navigate('AddUserScreen', { item })}
         style={styles.editBtn}
       >
-      <Text style={{ color: 'white' }}>Edit</Text>
+      <Text style={{ color: color.white}}>Edit</Text>
       </TouchableOpacity>
 
       <TouchableOpacity  
         onPress={() => handledelete(item.id)}
         style={styles.deleteBtn}
          >
-        <Text style={{ color: 'white' }}>delete</Text>
+        <Text style={{ color: color.white }}>delete</Text>
       </TouchableOpacity>
     </View>
   );
@@ -142,19 +144,17 @@ const UserListScreen = () => {
         <FilterIcon  
           onPress={() => navigation.navigate('Filter')}
           name="filter"
-          size={27}
           style={styles.filtericon}
          />
         <Icon 
          onPress={() => navigation.navigate('AddUserScreen')}
           name="plus"
-          size={17}
           style={styles.icon}
          />
       </View>
 
       <View>
-        <Searchicon name="search" size={30} style={styles.searchicon} />
+        <Searchicon name="search" style={styles.searchicon} />
         <TextInput
           style={styles.searchBar}
           placeholder="Search users"
@@ -184,7 +184,6 @@ const UserListScreen = () => {
       <Squarecircle 
         onPress={() => navigation.navigate('AddUserScreen')}
         name="plus"
-        size={45}
         style={styles.circleicon}
         />
     </View>
@@ -200,61 +199,66 @@ const styles = StyleSheet.create({
   },
   Separator: {
     height: 1,
-    backgroundColor: 'grey',
+    backgroundColor:color.grey,
   },
   image: {
     height: 60,
     width: 60,
     borderRadius: 47,
     marginRight: 10,
+    marginTop:20,
   },
   text: {
-    fontSize: 21,
+    fontSize:fontsize.xl,
     fontWeight: 'bold',
-    color: 'black',
+    color: color.black,
   },
   searchBar: {
     paddingLeft: 40,
     paddingVertical: 8,
     borderRadius: 6,
-    fontSize: 15,
-    color: 'black',
+    fontSize: fontsize.xs,
+    color: color.black,
     marginTop: 20,
     borderWidth: 1,
-    borderColor: 'black',
+    borderColor:color.black,
   },
   filtericon: {
     top: 10,
     left: 90,
+    fontSize:fontsize.xxl,
   },
   icon: {
     height: 22,
     width: 22,
-    color: 'grey',
+    color: color.grey,
     borderWidth: 2,
     borderRadius: 1,
-    borderColor: 'grey',
+    borderColor:color.grey,
     top: 10,
+    fontSize:fontsize.m,
   },
   searchicon: {
     position: 'absolute',
     left: 8,
     top: 25,
+    fontSize:fontsize.searchicon,
   },
   circleicon: {
     position: 'absolute',
     color: 'white',
-    backgroundColor: 'blue',
+    backgroundColor: color.blue,
     bottom: 40,
     height: 50,
     width: 50,
     right: 5,
+    fontSize:fontsize.circleicon,
     borderWidth: 1,
     borderRadius: 30,
-    borderColor: 'grey',
+    borderColor: color.grey,
   },
   item: {
-    fontSize: 18,
+    fontSize:fontsize.m,
     padding: 10,
   },
   container1: {
@@ -269,25 +273,25 @@ const styles = StyleSheet.create({
   },
   editBtn: {
     position: 'absolute',
-    backgroundColor: 'orange',
+    backgroundColor: color.orange,
     borderRadius: 4,
     paddingVertical: 3,
     height: 25,
     width: 65,
-    right: 0,
     padding: 12,
-    bottom: 50,
+    marginLeft:330,
+    bottom: 70,
   },
   deleteBtn: {
     position: 'absolute',
-    backgroundColor: 'red',
+    backgroundColor:color.red,
     borderRadius: 4,
     paddingVertical: 3,
     height: 25,
     width: 65,
-    right: 0,
+    marginLeft:330,
     padding: 12,
-    bottom: 17,
+    bottom: 40,
   },
 });
 

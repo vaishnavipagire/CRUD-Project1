@@ -5,6 +5,7 @@ import UserListScreen from '../screens/UserListScreen';
 import AddUserScreen from '../screens/AddUserScreen';
 import Filter from '../components/Filter';
 import Role from '../components/Role';
+import {color} from '../styles/color';
 
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
@@ -33,7 +34,7 @@ const AppNavigator = () => {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#5F9EA0',
+              backgroundColor: color.CadetBlue,
             },
           }}
         />
@@ -44,7 +45,7 @@ const AppNavigator = () => {
           options={{
             headerShown: true,
             headerStyle: {
-              backgroundColor: '#5F9EA0',
+              backgroundColor: color. CadetBlue,
             },
           }}
         />

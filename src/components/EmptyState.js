@@ -1,5 +1,7 @@
 import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
+import {color} from '../styles/color';
+import { fontsize } from '../styles/fontsize';
 
 const EmptyState = ({ onClear }) => {
   return (
@@ -36,18 +38,18 @@ const styles = StyleSheet.create({
   },
   text: {
     textAlign: 'center',
-    fontSize: 20,
+    fontSize:fontsize.l,
   },
   button: {
     borderWidth: 1,
     borderRadius: 20,
-    fontSize: 17,
+    fontSize: fontsize.s,
     height: 32,
     width: 170,
-    backgroundColor: '#008B8B',
+    backgroundColor:color.CadetBlue,
     padding: 3,
     paddingLeft: 20,
     paddingTop: 3,
-    color: 'white',
+    color: color.white,
   },
 });

@@ -13,6 +13,8 @@ import { useNavigation } from '@react-navigation/native';
 import { deleteUser } from '../services/api';
 import { useRoute } from '@react-navigation/native';
 import { createUser, updateUser } from '../services/api';
+import{color} from '../styles/color';
+import {fontsize} from '../styles/fontsize';
 
 const AddUserScreen = () => {
   const navigation = useNavigation();
@@ -109,7 +111,7 @@ const AddUserScreen = () => {
           />
         </View>
         <TouchableOpacity style={styles.edit}>
-          <Text style={{ color: 'blue', left: 15, top: 5 }}>Edit photo</Text>
+          <Text style={{ color:color.blue, left: 15, top: 5 }}>Edit photo</Text>
         </TouchableOpacity>
         
       </View>
@@ -197,7 +199,7 @@ const AddUserScreen = () => {
         style={styles.deletebutton}
         onPress={() => handledelete()}
       >
-        <Text style={{ color: 'white' }}>Delete User</Text>
+        <Text style={{ color: color.white}}>Delete User</Text>
       </TouchableOpacity>
     </View>
   );
@@ -206,7 +208,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 10,
-    backgroundColor: '#fff',
+    backgroundColor:color.white,
   },
   header: {
     justifyContent: 'space-between',
@@ -217,18 +219,18 @@ const styles = StyleSheet.create({
   text: {
     paddingLeft: 0,
     paddingRight: 100,
-    fontSize: 20,
+    fontSize:fontsize.l,
   },
   text1: {
     paddingRight: 30,
     fontWeight: 'bold',
-    fontSize: 20,
+    fontSize:fontsize.l,
     right: 30,
   },
   text2: {
-    fontSize: 17,
-    backgroundColor: '#2b50c0',
-    color: 'white',
+    fontSize:fontsize.s,
+    backgroundColor: color.blue,
+    color:color.white,
     paddingHorizontal: 14,
     borderRadius: 6,
     paddingVertical: 3,
@@ -251,7 +253,7 @@ const styles = StyleSheet.create({
     height: 25,
     width: 100,
     left: 138,
-    borderColor: 'grey',
+    borderColor: color.grey,
     borderRadius: 5,
     top: 23,
     paddingBottom: 8,
@@ -260,16 +262,16 @@ const styles = StyleSheet.create({
     height: 1,
     width: 500,
     right: 20,
-    backgroundColor: 'grey',
+    backgroundColor:color.grey,
     top: 35,
   },
   label: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     marginTop: 15,
   },
   button: {
     alignItems: 'center',
-    backgroundColor: 'red',
+    backgroundColor:color.red,
     padding: 10,
     top: 700,
     borderRadius: 6,
@@ -278,14 +280,14 @@ const styles = StyleSheet.create({
   },
   nameinput: {
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: color.grey,
     borderRadius: 4,
     padding: 10,
     marginTop: 6,
   },
   emailinput: {
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: color.grey,
     borderRadius: 4,
     padding: 10,
     marginTop: 6,
@@ -294,7 +296,7 @@ const styles = StyleSheet.create({
     height: 1,
     width: 500,
     right: 20,
-    backgroundColor: 'grey',
+    backgroundColor:color.grey,
     top: 20,
   },
   rolecontainer: {
@@ -305,7 +307,7 @@ const styles = StyleSheet.create({
   },
   roleDropdownList: {
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: color.grey,
     width: 150,
     height: 38,
     borderRadius: 4,
@@ -317,19 +319,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label1: {
-    fontSize: 20,
+    fontSize:fontsize.l,
   },
   phoneinput: {
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor: color.grey,
     borderRadius: 4,
     padding: 8,
     width: 148,
     marginTop: 15,
   },
   error: {
-    color: 'red',
-    fontSize: 18,
+    color: color.red,
+    fontSize: fontsize.m,
   },
   statuscontainer: {
     flexDirection: 'row',
@@ -339,7 +341,7 @@ const styles = StyleSheet.create({
   },
   statusinput: {
     borderWidth: 1,
-    borderColor: 'grey',
+    borderColor:color.grey,
     width: 149,
     height: 39,
     borderRadius: 4,
@@ -349,26 +351,27 @@ const styles = StyleSheet.create({
     height: 1,
     width: 500,
     right: 20,
-    backgroundColor: 'grey',
+    backgroundColor: color.grey,
     top: 55,
   },
+
   deletebutton: {
     position: 'absolute',
-    backgroundColor: '#e32f2fdd',
+    backgroundColor:color.red,
     padding: 10,
     right: 40,
     borderRadius: 6,
-    fontSize: 20,
+    fontSize: fontsize.l,
     paddingVertical: 6,
     paddingHorizontal: 130,
     marginTop: 810,
-    Color: 'white',
+    Color: color.white,
   },
   hzline: {
     height: 1,
     width: 500,
     right: 20,
-    backgroundColor: 'grey',
+    backgroundColor: color.grey,
     top: 6,
   },
 });

@@ -2,6 +2,8 @@ import { View, Text, StyleSheet, TouchableOpacity, Modal } from 'react-native';
 import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
+import { color } from '../styles/color';
+import { fontsize } from '../styles/fontsize';
 
 const Filter = ({ route }) => {
   const { selectedRoles = [] } = route.params || {};
@@ -22,12 +24,12 @@ const Filter = ({ route }) => {
         </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
-      
+
       <View style={styles.selectTxtConatiner}>
         <Text style={styles.selectedTxt}> Selected roles: </Text>
         {selectedRoles.map((item, idx) => (
           <View key={idx} style={styles.roleList}>
-            <Text style={{fontSize:20}}>{item}</Text>
+            <Text style={{ fontSize: fontsize.l }}>{item}</Text>
           </View>
         ))}
       </View>
@@ -115,11 +117,11 @@ const styles = StyleSheet.create({
     top: 12,
   },
   textrole: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     marginLeft: 20,
   },
   text: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     marginTop: 10,
     marginLeft: 20,
   },
@@ -132,10 +134,10 @@ const styles = StyleSheet.create({
     marginTop: 6,
     paddingLeft: 20,
     paddingTop: 10,
-    fontSize: 16,
+    fontSize: fontsize.s,
   },
   selectarrow: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     right: 40,
     top: 10,
   },
@@ -143,22 +145,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  selectTxtConatiner: {},
+  selectTxtConatiner: {
+},
   selectedTxt: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     margin: 10,
   },
   roleList: {
-    fontSize: 25,
+    fontSize: fontsize.xxl,
     marginLeft: 20,
   },
   title: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     right: 360,
     top: 50,
   },
   clearbutton: {
-    fontSize: 20,
+    fontSize:fontsize.l,
     borderWidth: 1,
     borderRadius: 20,
     height: 38,
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
   applybutton: {
     borderWidth: 1,
     borderRadius: 20,
-    fontSize: 20,
+    fontSize:fontsize.l,
     elevation: 8,
     paddingLeft: 55,
     top: 520,
@@ -179,20 +182,21 @@ const styles = StyleSheet.create({
     width: 170,
     paddingTop: 5,
     marginRight: 20,
-    backgroundColor: '#5F9EA0',
+    backgroundColor: color.CadetBlue,
   },
-  circleicon: {
-    backgroundColor: 'red',
-    alignSelf: 'center',
-    justifyContent: 'center',
-  },
+  // circleicon: {
+  //   backgroundColor: 'red',
+  //   alignSelf: 'center',
+  //   justifyContent: 'center',
+  // },
+
   modalBackground: {
     flex: 1,
     justifyContent: 'flex-end',
-    backgroundColor: 'rgba(0,0,0,0.7)',
+    backgroundColor: color.rgb,
   },
   modalContainer: {
-    backgroundColor: 'white',
+    backgroundColor: color.white,
     padding: 10,
     borderRadius: 20,
     elevation: 10,
@@ -200,23 +204,23 @@ const styles = StyleSheet.create({
     height: 150,
   },
   closeicon: {
-    fontSize: 27,
+    fontSize: fontsize.xxl,
     alignSelf: 'center',
   },
   optionRow: {
     flexDirection: 'row',
   },
   option: {
-    fontSize: 20,
+    fontSize: fontsize.l,
     paddingVertical: 7,
   },
   activeicon: {
-    fontSize: 25,
+    fontSize:fontsize.l,
     top: 10,
     marginLeft: 300,
   },
   inactiveicon: {
-    fontSize: 25,
+    fontSize:fontsize.l,
     top: 10,
     marginLeft: 280,
   },

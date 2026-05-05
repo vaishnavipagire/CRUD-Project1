@@ -1,12 +1,21 @@
-import { Text, ActivityIndicator } from 'react-native';
+import { Text, ActivityIndicator ,StyleSheet} from 'react-native';
 import React from 'react';
+import {color} from '../styles/color';
+import { fontsize } from '../styles/fontsize';
 
 const Loader = () => {
   return (
     <>
-      <ActivityIndicator size="large" color="blue" />
-      <Text style={{fontSize:20,textAlign:'center'}}>Plase wait </Text>
+      <ActivityIndicator style={{color:color.blue, marginTop:410}} size="large"/>
+      <Text style={styles.text}>Plase wait </Text>
     </>
   );
 };
 export default Loader;
+const styles = StyleSheet.create({
+  text:{
+  fontSize:fontsize.l,
+  textAlign:'center',
+  },
+})
+

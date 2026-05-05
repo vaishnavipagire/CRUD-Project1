@@ -2,6 +2,8 @@ import { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/dist/Entypo';
 import Check from 'react-native-vector-icons/Feather';
+import {color} from '../styles/color';
+import { fontsize } from '../styles/fontsize';
 
 const Role = ({ navigation }) => {
   const [selectedRoles, setSelectedRoles] = useState([]);
@@ -26,9 +28,9 @@ const Role = ({ navigation }) => {
         >
           <Text style={styles.roletext}>{role}</Text>
           {!selectedRoles.includes(role) ? (
-            <Icon name="circle" size={27} style={styles.circleicon} />
+            <Icon name="circle"  style={styles.circleicon} />
           ) : (
-            <Check name="check-circle" size={27} style={styles.circleicon} />
+            <Check name="check-circle"  style={styles.circleicon} />
           )}
         </TouchableOpacity>
       ))}
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     height: 38,
     width: 390,
-    color: 'black',
+    color: color.black,
     borderRadius: 20,
     marginLeft: 10,
     marginTop: 30,
@@ -69,11 +71,11 @@ const styles = StyleSheet.create({
   circleicon: {
     bottom: 6,
     left: 360,
-    fontSize: 26,
+    fontSize: fontsize.xxl,
     position: 'absolute',
   },
   filterbutton: {
-    fontSize: 20,
+    fontSize: fontsize.l,
     borderWidth: 1,
     borderRadius: 20,
     height: 38,
@@ -84,7 +86,7 @@ const styles = StyleSheet.create({
     paddingTop: 5,
   },
   confirmbutton: {
-    fontSize: 20,
+    fontSize: fontsize.l,
     borderWidth: 1,
     borderRadius: 20,
     height: 38,
@@ -94,6 +96,6 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
     paddingTop: 5,
     elevation: 8,
-    backgroundColor: '#5F9EA0',
+    backgroundColor: color.CadetBlue,
   },
 });
