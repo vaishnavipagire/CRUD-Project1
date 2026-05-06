@@ -20,6 +20,9 @@ import Loader from '../components/Loader';
 import {color} from '../styles/color';
 import { fontsize } from '../styles/fontsize';
 import {padding} from '../styles/padding';
+import {margin} from '../styles/margin';
+import {border} from '../styles/border'
+import {size} from '../styles/size';
 
 const UserListScreen = () => {
   const navigation = useNavigation();
@@ -137,7 +140,7 @@ const UserListScreen = () => {
         style={{
           flexDirection: 'row',
           justifyContent: 'space-between',
-          marginHorizontal: 20,
+          marginHorizontal: margin.l,
         }}
       >
         <Text style={styles.text}>All Users</Text>
@@ -176,7 +179,7 @@ const UserListScreen = () => {
           refreshing={refreshing}
           onRefresh={onRefresh}
           ItemSeparatorComponent={Separator}
-          contentContainerStyle={{ paddingBottom: 80 }}
+          contentContainerStyle={{ paddingBottom: padding.longest }}
         />
       )
       }
@@ -193,20 +196,20 @@ export default UserListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    border: 1,
-    padding: 3,
+    border: border.xs,
+    padding: padding.xxs,
     top: 30,
   },
   Separator: {
-    height: 1,
+    height: size.s,
     backgroundColor:color.grey,
   },
   image: {
-    height: 60,
-    width: 60,
-    borderRadius: 47,
-    marginRight: 10,
-    marginTop:20,
+    height: size.big,
+    width: size.big,
+    borderRadius: border.large,
+    marginRight: margin.xs,
+    marginTop:margin.l,
   },
   text: {
     fontSize:fontsize.xl,
@@ -214,13 +217,13 @@ const styles = StyleSheet.create({
     color: color.black,
   },
   searchBar: {
-    paddingLeft: 40,
-    paddingVertical: 8,
-    borderRadius: 6,
+    paddingLeft: padding.big,
+    paddingVertical:padding.xm,
+    borderRadius: border.l,
     fontSize: fontsize.xs,
     color: color.black,
-    marginTop: 20,
-    borderWidth: 1,
+    marginTop: margin.l,
+    borderWidth: border.xs,
     borderColor:color.black,
   },
   filtericon: {
@@ -229,11 +232,11 @@ const styles = StyleSheet.create({
     fontSize:fontsize.xxl,
   },
   icon: {
-    height: 22,
-    width: 22,
+    height: size.xs,
+    width:  size.xs,
     color: color.grey,
-    borderWidth: 2,
-    borderRadius: 1,
+    borderWidth: border.s,
+    borderRadius: border.xs,
     borderColor:color.grey,
     top: 10,
     fontSize:fontsize.m,
@@ -246,51 +249,51 @@ const styles = StyleSheet.create({
   },
   circleicon: {
     position: 'absolute',
-    color: 'white',
+    color: color.white,
     backgroundColor: color.blue,
     bottom: 40,
-    height: 50,
-    width: 50,
+    height: size.large,
+    width: size.large,
     right: 5,
     fontSize:fontsize.circleicon,
-    borderWidth: 1,
-    borderRadius: 30,
+    borderWidth: border.xs,
+    borderRadius: border.xxl,
     borderColor: color.grey,
   },
   item: {
     fontSize:fontsize.m,
-    padding: 10,
+    padding:padding.xxm,
   },
   container1: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'flex-start',
-    padding: 15,
+    padding: padding.xxl,
     fontWeight: 'bold',
   },
   Container3: {
-    padding: 6,
+    padding: padding.s,
   },
   editBtn: {
     position: 'absolute',
     backgroundColor: color.orange,
-    borderRadius: 4,
-    paddingVertical: 3,
-    height: 25,
-    width: 65,
-    padding: 12,
-    marginLeft:330,
+    borderRadius: border.m,
+    paddingVertical: padding.xxs,
+    height: size.m,
+    width: size.biggest,
+    padding:padding.l,
+    marginLeft:margin.larger,
     bottom: 70,
   },
   deleteBtn: {
     position: 'absolute',
     backgroundColor:color.red,
-    borderRadius: 4,
-    paddingVertical: 3,
-    height: 25,
-    width: 65,
-    marginLeft:330,
-    padding: 12,
+    borderRadius: border.m,
+    paddingVertical: padding.xxs,
+    height: size.m,
+    width:size.biggest,
+    marginLeft:margin.larger,
+    padding: padding.l,
     bottom: 40,
   },
 });

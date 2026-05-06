@@ -4,8 +4,12 @@ import { useNavigation } from '@react-navigation/native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import { color } from '../styles/color';
 import { fontsize } from '../styles/fontsize';
+import { padding } from '../styles/padding';
+import { margin } from '../styles/margin';
+import {border} from '../styles/border';
+import { size } from '../styles/size';
 
-const Filter = ({ route }) => {
+  const Filter = ({ route }) => {
   const { selectedRoles = [] } = route.params || {};
   const navigation = useNavigation();
 
@@ -118,22 +122,22 @@ const styles = StyleSheet.create({
   },
   textrole: {
     fontSize:fontsize.l,
-    marginLeft: 20,
+    marginLeft: margin.l,
   },
   text: {
     fontSize:fontsize.l,
-    marginTop: 10,
-    marginLeft: 20,
+    marginTop: margin.xs,
+    marginLeft: margin.l,
   },
   button: {
-    borderWidth: 1,
-    borderRadius: 20,
-    height: 38,
-    width: 350,
-    marginLeft: 30,
-    marginTop: 6,
-    paddingLeft: 20,
-    paddingTop: 10,
+    borderWidth: border.xs,
+    borderRadius: border.xl,
+    height:size.xxl,
+    width:size.larger,
+    marginLeft: margin.xl,
+    marginTop: margin.xxs,
+    paddingLeft: padding.mm,
+    paddingTop: padding.xxm,
     fontSize: fontsize.s,
   },
   selectarrow: {
@@ -149,11 +153,11 @@ const styles = StyleSheet.create({
 },
   selectedTxt: {
     fontSize:fontsize.l,
-    margin: 10,
+    margin: margin.xs,
   },
   roleList: {
     fontSize: fontsize.xxl,
-    marginLeft: 20,
+    marginLeft: margin.l,
   },
   title: {
     fontSize:fontsize.l,
@@ -162,34 +166,28 @@ const styles = StyleSheet.create({
   },
   clearbutton: {
     fontSize:fontsize.l,
-    borderWidth: 1,
-    borderRadius: 20,
-    height: 38,
-    width: 170,
-    paddingLeft: 55,
-    marginTop: 520,
-    marginLeft: 20,
-    paddingTop: 5,
+    borderWidth: border.xs,
+    borderRadius: border.xl,
+    height:size.xxl,
+    width: size.bigger,
+    paddingLeft: padding.xxxl,
+    marginTop: margin.longer,
+    marginLeft: margin.l,
+    paddingTop: padding.xs,
   },
   applybutton: {
-    borderWidth: 1,
-    borderRadius: 20,
+    borderWidth: border.xs,
+    borderRadius: border.xl,
     fontSize:fontsize.l,
     elevation: 8,
-    paddingLeft: 55,
+    paddingLeft: padding.xxxl,
     top: 520,
-    height: 38,
-    width: 170,
-    paddingTop: 5,
-    marginRight: 20,
+    height: size.xxl,
+    width: size.bigger,
+    paddingTop: padding.xs,
+    marginRight: margin.l,
     backgroundColor: color.CadetBlue,
   },
-  // circleicon: {
-  //   backgroundColor: 'red',
-  //   alignSelf: 'center',
-  //   justifyContent: 'center',
-  // },
-
   modalBackground: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -197,11 +195,11 @@ const styles = StyleSheet.create({
   },
   modalContainer: {
     backgroundColor: color.white,
-    padding: 10,
-    borderRadius: 20,
+    padding: padding.xxm,
+    borderRadius: border.xl,
     elevation: 10,
-    width: 412,
-    height: 150,
+    width: size.highlevel,
+    height:size.larger,
   },
   closeicon: {
     fontSize: fontsize.xxl,
@@ -212,16 +210,16 @@ const styles = StyleSheet.create({
   },
   option: {
     fontSize: fontsize.l,
-    paddingVertical: 7,
+    paddingVertical: padding.m,
   },
   activeicon: {
     fontSize:fontsize.l,
     top: 10,
-    marginLeft: 300,
+    marginLeft: margin.long,
   },
   inactiveicon: {
     fontSize:fontsize.l,
     top: 10,
-    marginLeft: 280,
+    marginLeft: margin.extralarge,
   },
 });

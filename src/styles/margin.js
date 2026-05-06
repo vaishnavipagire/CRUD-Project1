@@ -1,0 +1,18 @@
+export const margin = { 
+    xxs:6,
+    xs:10,
+    s:12,
+    m:13,
+    xm:15,
+     l:20,
+    xl:30,
+    xxl:100,
+    large:130,
+    big:220,
+    extralarge:280,
+    long:300,
+    larger:330,
+    bigger:410,
+    longer:520,
+    higher:810,
+}

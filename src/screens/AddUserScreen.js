@@ -13,8 +13,12 @@ import { useNavigation } from '@react-navigation/native';
 import { deleteUser } from '../services/api';
 import { useRoute } from '@react-navigation/native';
 import { createUser, updateUser } from '../services/api';
-import{color} from '../styles/color';
-import {fontsize} from '../styles/fontsize';
+import { color } from '../styles/color';
+import { fontsize } from '../styles/fontsize';
+import { padding } from '../styles/padding';
+import { margin } from '../styles/margin';
+import { border } from '../styles/border';
+import { size } from '../styles/size';
 
 const AddUserScreen = () => {
   const navigation = useNavigation();
@@ -111,9 +115,10 @@ const AddUserScreen = () => {
           />
         </View>
         <TouchableOpacity style={styles.edit}>
-          <Text style={{ color:color.blue, left: 15, top: 5 }}>Edit photo</Text>
+          <Text style={{ color: color.blue, left: 15, top: 5 }}>
+            Edit photo
+          </Text>
         </TouchableOpacity>
-        
       </View>
       <View style={styles.hzline1}></View>
       <View style={{ top: 36 }}>
@@ -199,7 +204,7 @@ const AddUserScreen = () => {
         style={styles.deletebutton}
         onPress={() => handledelete()}
       >
-        <Text style={{ color: color.white}}>Delete User</Text>
+        <Text style={{ color: color.white }}>Delete User</Text>
       </TouchableOpacity>
     </View>
   );
@@ -207,111 +212,110 @@ const AddUserScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 10,
-    backgroundColor:color.white,
+    padding: padding.xxm,
+    backgroundColor: color.white,
   },
   header: {
     justifyContent: 'space-between',
     alignItems: 'center',
     flexDirection: 'row',
-    paddingTop: 10,
+    paddingTop: padding.xxm,
   },
   text: {
-    paddingLeft: 0,
-    paddingRight: 100,
-    fontSize:fontsize.l,
+    paddingRight: padding.long,
+    fontSize: fontsize.l,
   },
   text1: {
-    paddingRight: 30,
+    paddingRight: padding.medium,
     fontWeight: 'bold',
-    fontSize:fontsize.l,
+    fontSize: fontsize.l,
     right: 30,
   },
   text2: {
-    fontSize:fontsize.s,
+    fontSize: fontsize.s,
     backgroundColor: color.blue,
-    color:color.white,
-    paddingHorizontal: 14,
-    borderRadius: 6,
-    paddingVertical: 3,
+    color: color.white,
+    paddingHorizontal: padding.xl,
+    borderRadius: border.l,
+    paddingVertical: padding.xxs,
   },
   photo: {
-    height: 200,
-    width: 200,
+    height: size.high,
+    width: size.high,
     left: 150,
     top: 20,
   },
   imageicon: {
-    width: 130,
-    height: 130,
-    borderRadius: 100,
+    width: size.long,
+    height: size.long,
+    borderRadius: border.big,
     left: 120,
     top: 17,
   },
   edit: {
-    borderWidth: 0.5,
-    height: 25,
-    width: 100,
+    borderWidth: border.xxs,
+    height: size.m,
+    width: size.higher,
     left: 138,
     borderColor: color.grey,
-    borderRadius: 5,
+    borderRadius: border.xm,
     top: 23,
-    paddingBottom: 8,
+    paddingBottom: padding.xm,
   },
   hzline1: {
-    height: 1,
-    width: 500,
+    height: size.s,
+    width: size.biggestlevel,
     right: 20,
-    backgroundColor:color.grey,
+    backgroundColor: color.grey,
     top: 35,
   },
   label: {
-    fontSize:fontsize.l,
-    marginTop: 15,
+    fontSize: fontsize.l,
+    marginTop: margin.xm,
   },
   button: {
     alignItems: 'center',
-    backgroundColor:color.red,
-    padding: 10,
+    backgroundColor: color.red,
+    padding: padding.xxm,
     top: 700,
-    borderRadius: 6,
-    paddingHorizontal: 130,
-    paddingVertical: 6,
+    borderRadius: border.l,
+    paddingHorizontal: padding.longer,
+    paddingVertical: padding.s,
   },
   nameinput: {
-    borderWidth: 1,
+    borderWidth: border.xs,
     borderColor: color.grey,
-    borderRadius: 4,
-    padding: 10,
-    marginTop: 6,
+    borderRadius: border.m,
+    padding: padding.xxm,
+    marginTop: margin.xxs,
   },
   emailinput: {
-    borderWidth: 1,
+    borderWidth: border.xs,
     borderColor: color.grey,
-    borderRadius: 4,
-    padding: 10,
-    marginTop: 6,
+    borderRadius: border.m,
+    padding: padding.xxm,
+    marginTop: margin.xxs,
   },
   hzline3: {
-    height: 1,
-    width: 500,
+    height: size.s,
+    width: size.biggestlevel,
     right: 20,
-    backgroundColor:color.grey,
+    backgroundColor: color.grey,
     top: 20,
   },
   rolecontainer: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 20,
+    marginTop: margin.l,
   },
   roleDropdownList: {
-    borderWidth: 1,
+    borderWidth: border.xs,
     borderColor: color.grey,
-    width: 150,
-    height: 38,
-    borderRadius: 4,
-    marginTop: 12,
+    width: size.larger,
+    height: size.xxl,
+    borderRadius: border.m,
+    marginTop: margin.s,
   },
   phonecontainer: {
     flexDirection: 'row',
@@ -319,15 +323,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   label1: {
-    fontSize:fontsize.l,
+    fontSize: fontsize.l,
   },
   phoneinput: {
-    borderWidth: 1,
+    borderWidth: border.xs,
     borderColor: color.grey,
-    borderRadius: 4,
-    padding: 8,
-    width: 148,
-    marginTop: 15,
+    borderRadius: border.m,
+    padding: padding.xm,
+    width: size.longer,
+    marginTop: margin.xm,
   },
   error: {
     color: color.red,
@@ -337,19 +341,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: margin.xs,
   },
   statusinput: {
-    borderWidth: 1,
-    borderColor:color.grey,
-    width: 149,
-    height: 39,
-    borderRadius: 4,
-    marginTop: 13,
+    borderWidth: border.xs,
+    borderColor: color.grey,
+    width: size.highest,
+    height:size.xxxl,
+    borderRadius: border.m,
+    marginTop: margin.m,
   },
   hzline6: {
-    height: 1,
-    width: 500,
+    height: size.s,
+    width: size. biggestlevel,
     right: 20,
     backgroundColor: color.grey,
     top: 55,
@@ -357,19 +361,19 @@ const styles = StyleSheet.create({
 
   deletebutton: {
     position: 'absolute',
-    backgroundColor:color.red,
-    padding: 10,
+    backgroundColor: color.red,
+    padding: padding.xxm,
     right: 40,
-    borderRadius: 6,
+    borderRadius: border.l,
     fontSize: fontsize.l,
-    paddingVertical: 6,
-    paddingHorizontal: 130,
-    marginTop: 810,
+    paddingVertical: padding.s,
+    paddingHorizontal: padding.longer,
+    marginTop: margin.higher,
     Color: color.white,
   },
   hzline: {
-    height: 1,
-    width: 500,
+    height: size.s,
+    width:  size.biggestlevel,
     right: 20,
     backgroundColor: color.grey,
     top: 6,

@@ -4,6 +4,11 @@ import Icon from 'react-native-vector-icons/dist/Entypo';
 import Check from 'react-native-vector-icons/Feather';
 import {color} from '../styles/color';
 import { fontsize } from '../styles/fontsize';
+import { padding } from '../styles/padding';
+import { margin } from '../styles/margin';
+import { border } from '../styles/border';
+import { size } from '../styles/size';
+
 
 const Role = ({ navigation }) => {
   const [selectedRoles, setSelectedRoles] = useState([]);
@@ -57,16 +62,16 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   roletext: {
-    fontSize: 20,
-    borderWidth: 1,
-    height: 38,
-    width: 390,
+    fontSize: fontsize.l,
+    borderWidth: border.xs,
+    height: size.xxl,
+    width:size. longlevel,
     color: color.black,
-    borderRadius: 20,
-    marginLeft: 10,
-    marginTop: 30,
-    paddingLeft: 12,
-    paddingTop: 5,
+    borderRadius: border.xl,
+    marginLeft: margin.xs,
+    marginTop: margin.xl,
+    paddingLeft: padding.l,
+    paddingTop: padding.xs,
   },
   circleicon: {
     bottom: 6,
@@ -76,25 +81,25 @@ const styles = StyleSheet.create({
   },
   filterbutton: {
     fontSize: fontsize.l,
-    borderWidth: 1,
-    borderRadius: 20,
-    height: 38,
-    width: 173,
+    borderWidth: border.xs,
+    borderRadius: border.xl,
+    height: size.xxl,
+    width: size.highestlevel,
     top: 480,
-    paddingLeft: 35,
-    margin: 20,
-    paddingTop: 5,
+    paddingLeft: padding.large,
+    margin: margin.l,
+    paddingTop: padding.xs,
   },
   confirmbutton: {
     fontSize: fontsize.l,
-    borderWidth: 1,
-    borderRadius: 20,
-    height: 38,
-    width: 173,
+    borderWidth: border.xs,
+    borderRadius: border.xl,
+    height:size.xxl,
+    width: size. highestlevel,
     top: 425,
-    marginLeft: 220,
-    paddingLeft: 50,
-    paddingTop: 5,
+    marginLeft: margin.big,
+    paddingLeft: padding.extralarge,
+    paddingTop: padding.xs,
     elevation: 8,
     backgroundColor: color.CadetBlue,
   },

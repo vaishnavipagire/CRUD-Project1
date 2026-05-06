@@ -2,6 +2,10 @@ import { View, Text, TouchableOpacity, StyleSheet, Image } from 'react-native';
 import React from 'react';
 import {color} from '../styles/color';
 import { fontsize } from '../styles/fontsize';
+import { padding } from '../styles/padding';
+import {border} from '../styles/border';
+import { margin } from '../styles/margin';
+import { size } from '../styles/size';
 
 const EmptyState = ({ onClear }) => {
   return (
@@ -23,17 +27,17 @@ export default EmptyState;
 const styles = StyleSheet.create({
   continer: {},
   image: {
-    width: 240,
-    height: 240,
-    borderRadius: 110,
+    width: size.biglevel,
+    height: size.biglevel,
+    borderRadius: border.higher,
     top: 110,
-    marginLeft: 100,
+    marginLeft: margin.xxl,
   },
   btnTxtContainer: {
     flexWrap: 'wrap',
     flexDirection: 'column',
-    marginLeft: 130,
-    paddingTop: 120,
+    marginLeft: margin.large,
+    paddingTop: padding.larger,
     gap: 20,
   },
   text: {
@@ -41,15 +45,15 @@ const styles = StyleSheet.create({
     fontSize:fontsize.l,
   },
   button: {
-    borderWidth: 1,
-    borderRadius: 20,
+    borderWidth: border.xs,
+    borderRadius:border.xl,
     fontSize: fontsize.s,
-    height: 32,
-    width: 170,
+    height: size.xl,
+    width: size.bigger,
     backgroundColor:color.CadetBlue,
-    padding: 3,
-    paddingLeft: 20,
-    paddingTop: 3,
+    padding: padding.xxs,
+    paddingLeft: padding.mm,
+    paddingTop: padding.xxs,
     color: color.white,
   },
 });
