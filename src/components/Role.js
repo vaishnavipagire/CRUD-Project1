@@ -8,7 +8,7 @@ import { padding } from '../styles/padding';
 import { margin } from '../styles/margin';
 import { border } from '../styles/border';
 import { size } from '../styles/size';
-
+import { spacing } from '../styles/spacing';
 
 const Role = ({ navigation }) => {
   const [selectedRoles, setSelectedRoles] = useState([]);
@@ -74,8 +74,8 @@ const styles = StyleSheet.create({
     paddingTop: padding.xs,
   },
   circleicon: {
-    bottom: 6,
-    left: 360,
+    bottom: spacing.xs,
+    left: spacing.highlevel,
     fontSize: fontsize.xxl,
     position: 'absolute',
   },
@@ -85,7 +85,7 @@ const styles = StyleSheet.create({
     borderRadius: border.xl,
     height: size.xxl,
     width: size.highestlevel,
-    top: 480,
+    top: spacing.bigsmall,
     paddingLeft: padding.large,
     margin: margin.l,
     paddingTop: padding.xs,
@@ -96,11 +96,11 @@ const styles = StyleSheet.create({
     borderRadius: border.xl,
     height:size.xxl,
     width: size. highestlevel,
-    top: 425,
+    top:spacing. extralarge,
     marginLeft: margin.big,
     paddingLeft: padding.extralarge,
     paddingTop: padding.xs,
-    elevation: 8,
+    elevation: spacing.s,
     backgroundColor: color.CadetBlue,
   },
 });

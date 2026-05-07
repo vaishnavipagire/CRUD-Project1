@@ -8,6 +8,7 @@ export const margin = {
     xl:30,
     xxl:100,
     large:130,
+    high:150,
     big:220,
     extralarge:280,
     long:300,

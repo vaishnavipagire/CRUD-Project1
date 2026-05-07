@@ -8,6 +8,7 @@ import { padding } from '../styles/padding';
 import { margin } from '../styles/margin';
 import {border} from '../styles/border';
 import { size } from '../styles/size';
+import { spacing } from '../styles/spacing';
 
   const Filter = ({ route }) => {
   const { selectedRoles = [] } = route.params || {};
@@ -18,25 +19,23 @@ import { size } from '../styles/size';
 
   return (
     <View style={styles.container}>
-      <Text style={styles.textrole}>Role</Text>
+      <Text style={styles.textrole}>Role ({selectedRoles.length})</Text>
       <TouchableOpacity
         onPress={() => navigation.navigate('Role')}
         style={{ flexDirection: 'row' }}
       >
         <Text style={styles.button}>
-          {selectedRoles.length > 0 ? `(${selectedRoles.length})` : 'Select'}
+           Select
+          {/* {selectedRoles.join(', ')} */}
         </Text>
         <Text style={styles.selectarrow}> {'>'} </Text>
       </TouchableOpacity>
 
       <View style={styles.selectTxtConatiner}>
-        <Text style={styles.selectedTxt}> Selected roles: </Text>
-        {selectedRoles.map((item, idx) => (
-          <View key={idx} style={styles.roleList}>
-            <Text style={{ fontSize: fontsize.l }}>{item}</Text>
-          </View>
-        ))}
-      </View>
+        <Text style={styles.selectedTxt}> Selected roles: </Text> 
+         <Text> {selectedRoles.join(', ')}</Text>
+
+      </View> 
       {/* //Status section */}
       <Text style={styles.text}>Status</Text>
       <TouchableOpacity
@@ -118,7 +117,7 @@ export default Filter;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    top: 12,
+    top: spacing.base,
   },
   textrole: {
     fontSize:fontsize.l,
@@ -142,8 +141,8 @@ const styles = StyleSheet.create({
   },
   selectarrow: {
     fontSize:fontsize.l,
-    right: 40,
-    top: 10,
+    right: spacing.long,
+    top: spacing.m,
   },
   clearContainer: {
     flexDirection: 'row',
@@ -161,8 +160,8 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize:fontsize.l,
-    right: 360,
-    top: 50,
+    right:  spacing.highlevel,
+    top: spacing.longest,
   },
   clearbutton: {
     fontSize:fontsize.l,
@@ -179,9 +178,9 @@ const styles = StyleSheet.create({
     borderWidth: border.xs,
     borderRadius: border.xl,
     fontSize:fontsize.l,
-    elevation: 8,
+    elevation: spacing.s,
     paddingLeft: padding.xxxl,
-    top: 520,
+    top: spacing.level,
     height: size.xxl,
     width: size.bigger,
     paddingTop: padding.xs,
@@ -197,9 +196,9 @@ const styles = StyleSheet.create({
     backgroundColor: color.white,
     padding: padding.xxm,
     borderRadius: border.xl,
-    elevation: 10,
+    elevation: spacing.m,
     width: size.highlevel,
-    height:size.larger,
+    height:size.longer,
   },
   closeicon: {
     fontSize: fontsize.xxl,
@@ -214,12 +213,13 @@ const styles = StyleSheet.create({
   },
   activeicon: {
     fontSize:fontsize.l,
-    top: 10,
+    top: spacing.m,
     marginLeft: margin.long,
   },
   inactiveicon: {
     fontSize:fontsize.l,
-    top: 10,
+    top: spacing.m,
     marginLeft: margin.extralarge,
   },
 });
+

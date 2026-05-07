@@ -19,6 +19,8 @@ import { padding } from '../styles/padding';
 import { margin } from '../styles/margin';
 import { border } from '../styles/border';
 import { size } from '../styles/size';
+import { spacing } from '../styles/spacing';
+import { content } from '../styles/content';
 
 const AddUserScreen = () => {
   const navigation = useNavigation();
@@ -115,13 +117,13 @@ const AddUserScreen = () => {
           />
         </View>
         <TouchableOpacity style={styles.edit}>
-          <Text style={{ color: color.blue, left: 15, top: 5 }}>
+          <Text style={{ color: color.blue, left: spacing.l, top: spacing.xxs }}>
             Edit photo
           </Text>
         </TouchableOpacity>
       </View>
       <View style={styles.hzline1}></View>
-      <View style={{ top: 36 }}>
+      <View style={{ top: spacing.higher }}>
         <Text style={styles.label}>Full Name</Text>
         <TextInput
           style={styles.nameinput}
@@ -182,7 +184,7 @@ const AddUserScreen = () => {
 
           <View style={styles.statuscontainer}>
             <Text style={styles.label1}>Status</Text>
-            <View style={{ position: 'absolute', left: 240 }}>
+            <View style={{ position: 'absolute', left: spacing.larger }}>
               <View style={styles.statusinput}>
                 <Picker
                   selectedValue={formData.status}
@@ -229,7 +231,7 @@ const styles = StyleSheet.create({
     paddingRight: padding.medium,
     fontWeight: 'bold',
     fontSize: fontsize.l,
-    right: 30,
+    right: spacing.big,
   },
   text2: {
     fontSize: fontsize.s,
@@ -242,32 +244,32 @@ const styles = StyleSheet.create({
   photo: {
     height: size.high,
     width: size.high,
-    left: 150,
-    top: 20,
+    left: spacing.biglevel,
+    top: spacing.xxl,
   },
   imageicon: {
     width: size.long,
     height: size.long,
     borderRadius: border.big,
-    left: 120,
-    top: 17,
+    left: spacing.highestlevel,
+    top: spacing.xl,
   },
   edit: {
     borderWidth: border.xxs,
     height: size.m,
     width: size.higher,
-    left: 138,
+    left: spacing.high,
     borderColor: color.grey,
     borderRadius: border.xm,
-    top: 23,
+    top: spacing.xxxl,
     paddingBottom: padding.xm,
   },
   hzline1: {
     height: size.s,
     width: size.biggestlevel,
-    right: 20,
+    right: spacing.xxl,
     backgroundColor: color.grey,
-    top: 35,
+    top: spacing.biggest,
   },
   label: {
     fontSize: fontsize.l,
@@ -277,7 +279,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: color.red,
     padding: padding.xxm,
-    top: 700,
+    top:spacing.longlevel,
     borderRadius: border.l,
     paddingHorizontal: padding.longer,
     paddingVertical: padding.s,
@@ -299,9 +301,9 @@ const styles = StyleSheet.create({
   hzline3: {
     height: size.s,
     width: size.biggestlevel,
-    right: 20,
+    right: spacing.xxl,
     backgroundColor: color.grey,
-    top: 20,
+    top: spacing.xxl,
   },
   rolecontainer: {
     flexDirection: 'row',
@@ -312,7 +314,7 @@ const styles = StyleSheet.create({
   roleDropdownList: {
     borderWidth: border.xs,
     borderColor: color.grey,
-    width: size.larger,
+    width: size.highest,
     height: size.xxl,
     borderRadius: border.m,
     marginTop: margin.s,
@@ -346,7 +348,7 @@ const styles = StyleSheet.create({
   statusinput: {
     borderWidth: border.xs,
     borderColor: color.grey,
-    width: size.highest,
+    width: size.longer,
     height:size.xxxl,
     borderRadius: border.m,
     marginTop: margin.m,
@@ -354,16 +356,16 @@ const styles = StyleSheet.create({
   hzline6: {
     height: size.s,
     width: size. biggestlevel,
-    right: 20,
+    right: spacing.xxl,
     backgroundColor: color.grey,
-    top: 55,
+    top: spacing.longer,
   },
 
-  deletebutton: {
+ deletebutton: {
     position: 'absolute',
     backgroundColor: color.red,
     padding: padding.xxm,
-    right: 40,
+    right: spacing.long,
     borderRadius: border.l,
     fontSize: fontsize.l,
     paddingVertical: padding.s,
@@ -374,9 +376,9 @@ const styles = StyleSheet.create({
   hzline: {
     height: size.s,
     width:  size.biggestlevel,
-    right: 20,
+    right: spacing.xxl,
     backgroundColor: color.grey,
-    top: 6,
+    top: spacing.xs,
   },
 });
 export default AddUserScreen;

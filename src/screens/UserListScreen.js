@@ -15,7 +15,7 @@ import { useNavigation } from '@react-navigation/native';
 import { deleteUser } from '../services/api';
 import { getAPIData } from '../services/api';
 import { useRoute } from '@react-navigation/native';
-import EmptyState from '../components/EmptyState';
+// import EmptyState from '../components/EmptyState';
 import Loader from '../components/Loader';
 import {color} from '../styles/color';
 import { fontsize } from '../styles/fontsize';
@@ -23,10 +23,11 @@ import {padding} from '../styles/padding';
 import {margin} from '../styles/margin';
 import {border} from '../styles/border'
 import {size} from '../styles/size';
+import { spacing } from '../styles/spacing';
 
 const UserListScreen = () => {
   const navigation = useNavigation();
-  const route = useRoute();
+  const route = useRoute();                            
   
   const selectedRoles = route?.params?.selectedRoles || [];
   const status = route?.params?.status || '';
@@ -167,11 +168,6 @@ const UserListScreen = () => {
       </View>
 
        <View>
-        {filteredData.length === 0 ?(
-          <EmptyState onClear={handleClear}
-          />
-        ):
-      (
         <FlatList
           data={filteredData}
           renderItem={renderItem}
@@ -180,10 +176,23 @@ const UserListScreen = () => {
           onRefresh={onRefresh}
           ItemSeparatorComponent={Separator}
           contentContainerStyle={{ paddingBottom: padding.longest }}
+          ListEmptyComponent={()=>(
+        <View >
+               <View>
+                <Image style={styles.image1} source={require('../assets/No Data.jpg')} />
+              </View>
+        
+              <View style={styles.btnTxtContainer}>
+                <Text style={styles.text2}> No Data Found </Text>
+                <TouchableOpacity onPress={handleClear}>
+                  <Text style={styles.button}> Clear parameters</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+     )}
         />
-      )
-      }
-      </View>
+    </View>
+
       <Squarecircle 
         onPress={() => navigation.navigate('AddUserScreen')}
         name="plus"
@@ -192,13 +201,14 @@ const UserListScreen = () => {
     </View>
   );
 };
+
 export default UserListScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     border: border.xs,
     padding: padding.xxs,
-    top: 30,
+    top: spacing.big,
   },
   Separator: {
     height: size.s,
@@ -227,8 +237,8 @@ const styles = StyleSheet.create({
     borderColor:color.black,
   },
   filtericon: {
-    top: 10,
-    left: 90,
+    top: spacing.m,
+    left: spacing.bigger,
     fontSize:fontsize.xxl,
   },
   icon: {
@@ -238,23 +248,23 @@ const styles = StyleSheet.create({
     borderWidth: border.s,
     borderRadius: border.xs,
     borderColor:color.grey,
-    top: 10,
+    top: spacing.m,
     fontSize:fontsize.m,
   },
   searchicon: {
     position: 'absolute',
-    left: 8,
-    top: 25,
+    left: spacing.s,
+    top: spacing.large,
     fontSize:fontsize.searchicon,
   },
   circleicon: {
     position: 'absolute',
     color: color.white,
     backgroundColor: color.blue,
-    bottom: 40,
+    bottom: spacing.long,
     height: size.large,
     width: size.large,
-    right: 5,
+    right: spacing.xxs,
     fontSize:fontsize.circleicon,
     borderWidth: border.xs,
     borderRadius: border.xxl,
@@ -283,7 +293,7 @@ const styles = StyleSheet.create({
     width: size.biggest,
     padding:padding.l,
     marginLeft:margin.larger,
-    bottom: 70,
+    bottom: spacing.highest,
   },
   deleteBtn: {
     position: 'absolute',
@@ -294,7 +304,36 @@ const styles = StyleSheet.create({
     width:size.biggest,
     marginLeft:margin.larger,
     padding: padding.l,
-    bottom: 40,
+    bottom: spacing.long,
+  },
+  image1: {
+    width: size.biglevel,
+    height: size.biglevel,
+    borderRadius: border.higher,
+    top: spacing.bigger,
+    marginLeft: margin.xxl,
+  },
+  btnTxtContainer: {
+    flexWrap: 'wrap',
+    flexDirection: 'column',
+    marginLeft: margin.large,
+    paddingTop: padding.larger,
+    gap: spacing.xxl,
+  },
+  text2: {
+    textAlign: 'center',
+    fontSize:fontsize.l,
+  },
+  button: {
+    borderWidth: border.xs,
+    borderRadius:border.xl,
+    fontSize: fontsize.s,
+    height: size.xl,
+    width: size.bigger,
+    backgroundColor:color.CadetBlue,
+    padding: padding.xxs,
+    paddingLeft: padding.mm,
+    paddingTop: padding.xxs,
+    color: color.white,
   },
 });
-
